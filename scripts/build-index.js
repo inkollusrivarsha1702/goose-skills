@@ -1,13 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Build skills-index.json from all SKILL.md files in the repo.
- *
- * Run from the repo root:
- *   node scripts/build-index.js
- *
- * Reads YAML frontmatter from each SKILL.md and collects file lists.
- * Output: skills-index.json at repo root.
+ * Build skills-index.json from SKILL.md + skill.meta.json files.
  */
 
 const fs = require('fs');
@@ -22,53 +16,15 @@ function parseFrontmatter(content) {
 
   const yaml = match[1];
   const result = {};
-
-  // Simple YAML parser for flat key: value and key: >-multiline
-  let currentKey = null;
-  let multiline = false;
-
   for (const line of yaml.split('\n')) {
-    if (!multiline) {
-      const kvMatch = line.match(/^(\w[\w-]*):\s*(.*)/);
-      if (kvMatch) {
-        currentKey = kvMatch[1];
-        let value = kvMatch[2].trim();
-        if (value === '>' || value === '|') {
-          multiline = true;
-          result[currentKey] = '';
-        } else {
-          // Strip surrounding quotes
-          value = value.replace(/^['"]|['"]$/g, '');
-          // Handle inline arrays [a, b, c]
-          if (value.startsWith('[') && value.endsWith(']')) {
-            value = value.slice(1, -1).split(',').map((s) => s.trim());
-          }
-          result[currentKey] = value;
-        }
-      }
-    } else {
-      if (line.match(/^\S/) && !line.startsWith(' ')) {
-        // New top-level key, end multiline
-        multiline = false;
-        result[currentKey] = result[currentKey].trim();
-        // Re-parse this line
-        const kvMatch = line.match(/^(\w[\w-]*):\s*(.*)/);
-        if (kvMatch) {
-          currentKey = kvMatch[1];
-          let value = kvMatch[2].trim();
-          value = value.replace(/^['"]|['"]$/g, '');
-          result[currentKey] = value;
-        }
-      } else {
-        result[currentKey] += ' ' + line.trim();
-      }
+    const kvMatch = line.match(/^(\w[\w-]*):\s*(.*)/);
+    if (!kvMatch) continue;
+    let value = kvMatch[2].trim().replace(/^['"]|['"]$/g, '');
+    if (value.startsWith('[') && value.endsWith(']')) {
+      value = value.slice(1, -1).split(',').map((s) => s.trim());
     }
+    result[kvMatch[1]] = value;
   }
-
-  if (multiline && currentKey) {
-    result[currentKey] = result[currentKey].trim();
-  }
-
   return result;
 }
 
@@ -76,8 +32,7 @@ function collectFiles(dir) {
   const files = [];
   if (!fs.existsSync(dir)) return files;
 
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...collectFiles(full));
@@ -100,23 +55,28 @@ function scanCategory(category) {
   for (const slug of slugs) {
     const skillDir = path.join(categoryDir, slug);
     const skillMd = path.join(skillDir, 'SKILL.md');
+    const metaPath = path.join(skillDir, 'skill.meta.json');
+
     if (!fs.existsSync(skillMd)) continue;
+    if (!fs.existsSync(metaPath)) {
+      throw new Error(`Missing skill.meta.json for skills/${category}/${slug}`);
+    }
 
     const content = fs.readFileSync(skillMd, 'utf8');
-    const meta = parseFrontmatter(content);
+    const metaFromFrontmatter = parseFrontmatter(content);
+    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
 
-    const allFiles = collectFiles(skillDir).map((f) =>
-      path.relative(ROOT, f)
-    );
+    const allFiles = collectFiles(skillDir).map((f) => path.relative(ROOT, f));
 
     skills.push({
       slug,
-      name: meta.name || slug,
+      name: metaFromFrontmatter.name || slug,
       category,
-      description: meta.description || '',
-      tags: typeof meta.tags === 'string' ? meta.tags : (Array.isArray(meta.tags) ? meta.tags.join(', ') : ''),
+      description: metaFromFrontmatter.description || '',
+      tags: Array.isArray(meta.tags) ? meta.tags.join(', ') : '',
       path: `skills/${category}/${slug}`,
       files: allFiles,
+      metadata: meta,
     });
   }
 
@@ -126,13 +86,13 @@ function scanCategory(category) {
 const skills = [
   ...scanCategory('capabilities'),
   ...scanCategory('composites'),
-];
+].sort((a, b) => a.slug.localeCompare(b.slug));
 
 const index = {
-  version: '1.0.0',
+  version: '1.1.0',
   generated: new Date().toISOString().split('T')[0],
   skills,
 };
 
-fs.writeFileSync(OUTPUT, JSON.stringify(index, null, 2));
+fs.writeFileSync(OUTPUT, JSON.stringify(index, null, 2) + '\n');
 console.log(`Generated ${OUTPUT} with ${skills.length} skills.`);

@@ -1,0 +1,13 @@
+{
+  "slug": "create-html-slides",
+  "category": "capabilities",
+  "tags": [],
+  "installation": {
+    "base_command": "npx goose-skills install create-html-slides",
+    "supports": [
+      "claude",
+      "cursor",
+      "codex"
+    ]
+  }
+}
