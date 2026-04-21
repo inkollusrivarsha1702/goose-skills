@@ -5,7 +5,7 @@ Generates product videos from still images using Higgsfield's API.
 Usage:
     python tools/higgsfield_video.py --image-url <URL> --prompt <text> [--model <model>] [--duration <seconds>]
 
-Requires API_Key_ID and API_Key_Secret in .env (project root or parent directories)
+Requires HIGGSFIELD_API_KEY_ID and HIGGSFIELD_API_KEY_SECRET in .env (project root or parent directories)
 """
 
 import os
@@ -44,10 +44,10 @@ MODELS = {
 
 
 def get_auth_header():
-    api_key = os.getenv("API_Key_ID")
-    api_secret = os.getenv("API_Key_Secret")
+    api_key = os.getenv("HIGGSFIELD_API_KEY_ID")
+    api_secret = os.getenv("HIGGSFIELD_API_KEY_SECRET")
     if not api_key or not api_secret:
-        print("Error: Set API_Key_ID and API_Key_Secret in your .env file")
+        print("Error: Set HIGGSFIELD_API_KEY_ID and HIGGSFIELD_API_KEY_SECRET in your .env file")
         sys.exit(1)
     return f"Key {api_key}:{api_secret}"
 

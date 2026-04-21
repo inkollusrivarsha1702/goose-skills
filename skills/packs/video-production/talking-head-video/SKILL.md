@@ -528,7 +528,7 @@ Upload all screenshot/image files to HeyGen's asset storage.
 
 ```bash
 curl -X POST "https://upload.heygen.com/v1/asset" \
-  -H "X-Api-Key: <API_KEY>" \
+  -H "X-Api-Key: <HEYGEN_API_KEY>" \
   -H "Content-Type: image/png" \
   --data-binary @screenshot.png
 ```
@@ -650,18 +650,18 @@ This log helps track what has been generated, measure generation times, and impr
 
 To list available avatars:
 ```bash
-curl -s "https://api.heygen.com/v2/avatars" -H "X-Api-Key: <API_KEY>"
+curl -s "https://api.heygen.com/v2/avatars" -H "X-Api-Key: <HEYGEN_API_KEY>"
 ```
 
 To list available voices:
 ```bash
-curl -s "https://api.heygen.com/v2/voices" -H "X-Api-Key: <API_KEY>"
+curl -s "https://api.heygen.com/v2/voices" -H "X-Api-Key: <HEYGEN_API_KEY>"
 ```
 
 To design a custom voice from description:
 ```bash
 curl -X POST "https://api.heygen.com/v3/voices" \
-  -H "X-Api-Key: <API_KEY>" \
+  -H "X-Api-Key: <HEYGEN_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{"description": "friendly male voice, mid-30s, warm and conversational"}'
 ```

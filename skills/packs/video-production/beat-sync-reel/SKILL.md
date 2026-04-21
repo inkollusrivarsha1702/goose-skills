@@ -178,7 +178,7 @@ ffmpeg -y -loop 1 -i endcard.png -vf "scale=1080:1920" \
 
 #### Style Presets
 
-Fonts are located in this skill's `fonts/` directory. Fall back to system fonts if custom fonts fail.
+Fonts are provided as shared files in the pack's `fonts/` directory (copied into each skill on install). Fall back to system fonts if custom fonts are not found.
 
 | Preset | Title Font | Body Font | Text Color | Treatment |
 |--------|-----------|-----------|------------|-----------|
@@ -234,7 +234,7 @@ Save the final reel to a user-specified directory (or the current working direct
 2. **Infographic filtering is heuristic** — may not catch all non-product images. Agent should visually verify scraped images before using.
 3. **Very fast tempos (>140 BPM)** — even with beat_freq=2, cuts may be too rapid (<0.9s). Use beat_freq=4 for high-tempo tracks.
 4. **Audio quality from yt-dlp** — depends on source. Instagram/TikTok audio is often 128kbps. YouTube is usually better.
-5. **No drawtext in FFmpeg** — this system's FFmpeg lacks the drawtext filter. Always use Pillow for text → PNG → overlay.
+5. **No drawtext in FFmpeg** — many FFmpeg installations lack the drawtext filter. Always use Pillow for text → PNG → overlay.
 6. **Micro-cuts** — if beats are unevenly spaced, some scenes may be very short (<0.3s). The agent should check for and merge these.
 
 ---

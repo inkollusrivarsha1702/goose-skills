@@ -12,7 +12,12 @@
     "video-clipper",
     "video-polish"
   ],
-  "shared_files": [],
+  "shared_files": [
+    "fonts/Cormorant-Italic.ttf",
+    "fonts/Cormorant-Regular.ttf",
+    "fonts/Montserrat-Bold.ttf",
+    "fonts/Montserrat-Light.ttf"
+  ],
   "installation": {
     "base_command": "npx goose-skills install video-production",
     "supports": [

@@ -5257,7 +5257,12 @@
       "description": "5-skill video production toolkit: beat-synced reels from product images, AI-animated product reels via Higgsfield, talking head videos via HeyGen, long-form to short-form clip repurposing, and screen recording polish with zoom/pan effects.",
       "tags": "content",
       "path": "skills/packs/video-production",
-      "shared_files": [],
+      "shared_files": [
+        "skills/packs/video-production/fonts/Cormorant-Italic.ttf",
+        "skills/packs/video-production/fonts/Cormorant-Regular.ttf",
+        "skills/packs/video-production/fonts/Montserrat-Bold.ttf",
+        "skills/packs/video-production/fonts/Montserrat-Light.ttf"
+      ],
       "skills": [
         {
           "slug": "beat-sync-reel",
@@ -5266,10 +5271,7 @@
           "path": "skills/packs/video-production/beat-sync-reel",
           "files": [
             "skills/packs/video-production/beat-sync-reel/SKILL.md",
-            "skills/packs/video-production/beat-sync-reel/fonts/Cormorant-Italic.ttf",
-            "skills/packs/video-production/beat-sync-reel/fonts/Cormorant-Regular.ttf",
-            "skills/packs/video-production/beat-sync-reel/fonts/Montserrat-Bold.ttf",
-            "skills/packs/video-production/beat-sync-reel/fonts/Montserrat-Light.ttf"
+            "skills/packs/video-production/beat-sync-reel/skill.meta.json"
           ],
           "source": "pack"
         },
@@ -5280,11 +5282,8 @@
           "path": "skills/packs/video-production/product-reel-generator",
           "files": [
             "skills/packs/video-production/product-reel-generator/SKILL.md",
-            "skills/packs/video-production/product-reel-generator/fonts/Cormorant-Italic.ttf",
-            "skills/packs/video-production/product-reel-generator/fonts/Cormorant-Regular.ttf",
-            "skills/packs/video-production/product-reel-generator/fonts/Montserrat-Bold.ttf",
-            "skills/packs/video-production/product-reel-generator/fonts/Montserrat-Light.ttf",
-            "skills/packs/video-production/product-reel-generator/tools/higgsfield_video.py"
+            "skills/packs/video-production/product-reel-generator/scripts/higgsfield_video.py",
+            "skills/packs/video-production/product-reel-generator/skill.meta.json"
           ],
           "source": "pack"
         },
@@ -5295,7 +5294,8 @@
           "path": "skills/packs/video-production/talking-head-video",
           "files": [
             "skills/packs/video-production/talking-head-video/AVATAR-CONFIG.example.md",
-            "skills/packs/video-production/talking-head-video/SKILL.md"
+            "skills/packs/video-production/talking-head-video/SKILL.md",
+            "skills/packs/video-production/talking-head-video/skill.meta.json"
           ],
           "source": "pack"
         },
@@ -5305,7 +5305,8 @@
           "description": "Repurposes long-form video (podcasts, interviews, talks) into short-form vertical clips for Instagram Reels, TikTok, and YouTube Shorts. Handles transcription, moment selection, clip extraction, speaker-tracked reframing (16:9 to 9:16), and animated captions.",
           "path": "skills/packs/video-production/video-clipper",
           "files": [
-            "skills/packs/video-production/video-clipper/SKILL.md"
+            "skills/packs/video-production/video-clipper/SKILL.md",
+            "skills/packs/video-production/video-clipper/skill.meta.json"
           ],
           "source": "pack"
         },
@@ -5315,7 +5316,8 @@
           "description": "Takes an existing screen recording or demo video and adds professional zoom/pan effects synchronized to the narration. Uses transcript-driven zoom targeting and Remotion for rendering. Optionally replaces audio with a soundtrack.",
           "path": "skills/packs/video-production/video-polish",
           "files": [
-            "skills/packs/video-production/video-polish/SKILL.md"
+            "skills/packs/video-production/video-polish/SKILL.md",
+            "skills/packs/video-production/video-polish/skill.meta.json"
           ],
           "source": "pack"
         }
@@ -5334,7 +5336,12 @@
           "video-clipper",
           "video-polish"
         ],
-        "shared_files": [],
+        "shared_files": [
+          "fonts/Cormorant-Italic.ttf",
+          "fonts/Cormorant-Regular.ttf",
+          "fonts/Montserrat-Bold.ttf",
+          "fonts/Montserrat-Light.ttf"
+        ],
         "installation": {
           "base_command": "npx goose-skills install video-production",
           "supports": [

@@ -15,7 +15,7 @@ Takes a long-form video and produces ready-to-post short-form vertical clips wit
 ## Requirements
 
 - **FFmpeg** installed and available in PATH (`brew install ffmpeg` on macOS, `apt install ffmpeg` on Linux)
-- **Python 3** with `openai-whisper` and `requests` packages (`pip install openai-whisper requests`)
+- **Python 3** with `openai-whisper` and `requests` packages (`pip install openai-whisper requests`). **Note:** `openai-whisper` installs PyTorch (~2GB download). This skill uses `openai-whisper` instead of the lighter `whisper-cpp` because it provides word-level timestamps needed for accurate viral moment scoring.
 - **yt-dlp** installed (for YouTube/URL downloads) — `brew install yt-dlp` on macOS, `pip install yt-dlp` on Linux
 - **API Keys** in `.env` file (project root or any parent directory):
   - `KLAP_API_KEY` — from [klap.app](https://klap.app) (reframing with speaker tracking)

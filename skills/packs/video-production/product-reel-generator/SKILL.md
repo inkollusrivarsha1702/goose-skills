@@ -16,7 +16,7 @@ You are a video production skill that takes an e-commerce product page URL and p
 
 - **FFmpeg** installed and available in PATH (`brew install ffmpeg` on macOS, `apt install ffmpeg` on Linux)
 - **Python 3** with `Pillow` and `python-dotenv` packages (`pip install Pillow python-dotenv`)
-- **Higgsfield API credentials** — `API_Key_ID` and `API_Key_Secret` in a `.env` file (project root or any parent directory)
+- **Higgsfield API credentials** — `HIGGSFIELD_API_KEY_ID` and `HIGGSFIELD_API_KEY_SECRET` in a `.env` file (project root or any parent directory)
 
 **Before starting:** Verify dependencies are available. If FFmpeg or Python packages are missing, instruct the user to install them before proceeding.
 
@@ -59,11 +59,11 @@ Use image position on the product page as the primary signal:
 
 ### Step 3: Generate AI Video Clips
 
-Use the Higgsfield API via this skill's `tools/higgsfield_video.py` script or direct `curl` calls.
+Use the Higgsfield API via this skill's `scripts/higgsfield_video.py` script or direct `curl` calls.
 
 **API details:**
 - Base URL: `https://platform.higgsfield.ai`
-- Auth header: `Authorization: Key {API_Key_ID}:{API_Key_Secret}`
+- Auth header: `Authorization: Key {HIGGSFIELD_API_KEY_ID}:{HIGGSFIELD_API_KEY_SECRET}`
 - Always set `"aspect_ratio": "9:16"` for Instagram Reels
 
 **Model selection:**
@@ -106,7 +106,7 @@ ffmpeg -y -i video.mp4 -loop 1 -t <duration> -i overlay.png \
 
 #### Style Presets
 
-Fonts are located in this skill's `fonts/` directory. Fall back to system fonts if custom fonts fail.
+Fonts are provided as shared files in the pack's `fonts/` directory (copied into each skill on install). Fall back to system fonts if custom fonts are not found.
 
 | Preset | Title Font | Body Font | Text Color | Treatment |
 |--------|-----------|-----------|------------|-----------|
@@ -167,8 +167,7 @@ ffmpeg -y -i reel-silent.mp4 -i music.mp3 \
   -map 0:v -map "[aud]" -c:v copy -c:a aac -shortest output.mp4
 ```
 
-If no music file provided, use the royalty-free track at:
-a royalty-free track such as "Shiny Tech" by Kevin MacLeod (user should provide a local path or URL)
+If no music file is provided, ask the user to supply one or search for a royalty-free track (e.g., Kevin MacLeod's library at incompetech.com). The user should provide a local file path or URL.
 
 ---
 

@@ -7,7 +7,7 @@
 ## HeyGen Settings
 - Avatar ID: [heygen avatar id]
 - Avatar Type: [stock / photo / digital_twin / prompt]
-- Avatar Model: [avatar_iv]
+- Avatar Model: [avatar_iii or avatar_iv]
 - Voice ID: [heygen voice id]
 - Default Style: [Clean Dark]
 
