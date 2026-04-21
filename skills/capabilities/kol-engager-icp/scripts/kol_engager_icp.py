@@ -31,17 +31,23 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 # ── Apify Guard (shared cost protection) ────────────────────────────────────
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_script_dir, "..", "..", "..", ".."))  # repo root
+sys.path.insert(0, os.path.join(_script_dir, ".."))              # skill dir (standalone install)
 from tools.apify_guard import (
     guarded_apify_run, confirm_cost, set_limit, set_auto_confirm,
     ApifyLimitReached, get_run_count, get_run_limit,
 )
 
+# ── GooseWorks Proxy ─────────────────────────────────────────────────────────
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
 # ── Apify Actor IDs ──────────────────────────────────────────────────────────
 
 PROFILE_POSTS_ACTOR_ID = "harvestapi~linkedin-profile-posts"
 COMPANY_POSTS_ACTOR_ID = "WI0tj4Ieb5Kq458gB"   # harvestapi/linkedin-company-posts
-PROFILE_ACTOR_ID = "supreme_coder~linkedin-profile-scraper"
+PROFILE_ACTOR_ID = "harvestapi~linkedin-profile-scraper"
 
 # ── Mode Caps ────────────────────────────────────────────────────────────────
 
@@ -126,7 +132,10 @@ def load_env():
 
 def apify_dataset(run_id, token, limit=50000):
     """Fetch dataset items from a completed run."""
-    url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    if GOOSEWORKS_API_KEY:
+        url = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    else:
+        url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
     return json.load(urllib.request.urlopen(url, timeout=120))
 
 
@@ -152,8 +161,12 @@ def extract_location(profile):
         or profile.get("geoLocation", {}).get("city", "")
     )
     if isinstance(location, dict):
-        parts = [location.get("city", ""), location.get("state", ""),
-                 location.get("country", "")]
+        if location.get("linkedinText"):
+            return location["linkedinText"]
+        parsed = location.get("parsed", {})
+        parts = [parsed.get("city", location.get("city", "")),
+                 parsed.get("state", location.get("state", "")),
+                 parsed.get("country", location.get("country", ""))]
         return ", ".join(p for p in parts if p)
     return str(location) if location else ""
 
@@ -230,7 +243,7 @@ def scrape_kol_posts(kol_urls, token, config):
                     "maxPosts": max_posts,
                 },
                 token,
-                wait_secs=300,
+                timeout=300,
             )
             items = apify_dataset(run_id, token, limit=500)
 
@@ -380,7 +393,7 @@ def scrape_engagers(selected_posts, token, config):
                 "maxComments": 0,
             }
 
-            run_id = guarded_apify_run(COMPANY_POSTS_ACTOR_ID, payload, token, wait_secs=600)
+            run_id = guarded_apify_run(COMPANY_POSTS_ACTOR_ID, payload, token, timeout=600)
             items = apify_dataset(run_id, token)
             print(f"    Retrieved {len(items)} total items")
 
@@ -557,7 +570,7 @@ def enrich_profiles(engagers, token, config):
         try:
             cleaned_batch = [clean_profile_url(u) for u in batch]
             payload = {"profileUrls": cleaned_batch}
-            run_id = guarded_apify_run(PROFILE_ACTOR_ID, payload, token, wait_secs=180)
+            run_id = guarded_apify_run(PROFILE_ACTOR_ID, payload, token, timeout=180)
             profiles = apify_dataset(run_id, token)
 
             for profile in profiles:
@@ -783,9 +796,9 @@ def main():
         kol_urls = kol_urls[:max_kols]
 
     env = load_env()
-    token = env.get("APIFY_API_TOKEN", "")
+    token = GOOSEWORKS_API_KEY or env.get("APIFY_API_TOKEN", "")
     if not token:
-        print("ERROR: APIFY_API_TOKEN not found in .env")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.", file=sys.stderr)
         sys.exit(1)
 
     client_name = config["client_name"]

@@ -8,6 +8,10 @@ and contact creation against the Apollo.io API.
 No external dependencies — uses urllib.request only, following
 the zero-dependency pattern used across all tools in this project.
 
+Supports a proxy+fallback pattern:
+  - If GOOSEWORKS_API_KEY is set, routes requests through the GooseWorks proxy.
+  - Otherwise, hits https://api.apollo.io directly using the caller's APOLLO_API_KEY.
+
 Usage:
     from apollo_client import ApolloClient
 
@@ -17,30 +21,40 @@ Usage:
 """
 
 import json
+import os
 import time
 import urllib.request
 import urllib.parse
 import urllib.error
 
-BASE_URL = "https://api.apollo.io/api/v1"
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
+if GOOSEWORKS_API_KEY:
+    BASE_URL = f"{GOOSEWORKS_API_BASE}/v1/proxy/apollo"
+else:
+    BASE_URL = "https://api.apollo.io"
+
 MAX_RETRIES = 3
 
 
 class ApolloClient:
     """Thin REST client for the Apollo.io API."""
 
-    def __init__(self, api_key):
+    def __init__(self, api_key=None):
         """
         Args:
             api_key: APOLLO_API_KEY from Apollo settings.
+                     Optional when running under GooseWorks (key is managed server-side).
         """
-        self.api_key = api_key
+        self.api_key = api_key or ""
         self.headers = {
-            "x-api-key": api_key,
             "Content-Type": "application/json",
             "Accept": "application/json",
             "User-Agent": "Mozilla/5.0 (compatible; ApolloClient/1.0)",
         }
+        if GOOSEWORKS_API_KEY:
+            self.headers["Authorization"] = f"Bearer {GOOSEWORKS_API_KEY}"
 
     def _request(self, method, path, data=None, retries=MAX_RETRIES):
         """Generic HTTP request to Apollo API with retry logic.
@@ -65,7 +79,8 @@ class ApolloClient:
         # Include api_key in body for POST requests (Apollo's primary auth method)
         if data is not None and method == "POST":
             data = dict(data)
-            data["api_key"] = self.api_key
+            if self.api_key:
+                data["api_key"] = self.api_key
         body = json.dumps(data).encode("utf-8") if data is not None else None
         req = urllib.request.Request(url, data=body, headers=self.headers, method=method)
 
@@ -104,7 +119,7 @@ class ApolloClient:
         print("  ERROR: Max retries exceeded.")
         return None
 
-    # ── Search (FREE) ─────────────────────────────────────────────
+    # -- Search (FREE) -----------------------------------------------------
 
     def search_people(self, filters, page=1, per_page=100):
         """Search for people matching filters. FREE — no credits consumed.
@@ -131,7 +146,7 @@ class ApolloClient:
         payload.update(filters)
         return self._request("POST", "/mixed_people/api_search", data=payload)
 
-    # ── Enrichment (COSTS CREDITS) ────────────────────────────────
+    # -- Enrichment (COSTS CREDITS) ----------------------------------------
 
     def enrich_person(self, first_name=None, last_name=None, organization_name=None,
                       linkedin_url=None, email=None, domain=None):
@@ -175,7 +190,7 @@ class ApolloClient:
         payload = {"details": details_list[:10]}
         return self._request("POST", "/people/bulk_match", data=payload)
 
-    # ── Organization Search (COSTS CREDITS) ───────────────────────
+    # -- Organization Search (COSTS CREDITS) -------------------------------
 
     def search_organizations(self, filters, page=1, per_page=100):
         """Search for organizations. Costs credits — use sparingly.
@@ -195,7 +210,7 @@ class ApolloClient:
         payload.update(filters)
         return self._request("POST", "/mixed_companies/search", data=payload)
 
-    # ── Organization Search (by name, to discover domain) ──────
+    # -- Organization Search (by name, to discover domain) -----------------
 
     def search_organizations_by_name(self, name, page=1, per_page=5):
         """Search for organizations by name. Returns matching orgs with domains.
@@ -218,7 +233,7 @@ class ApolloClient:
         }
         return self._request("POST", "/mixed_companies/search", data=payload)
 
-    # ── Organization Enrichment (COSTS CREDITS) ─────────────────
+    # -- Organization Enrichment (COSTS CREDITS) ---------------------------
 
     def enrich_organization(self, domain=None, name=None):
         """Enrich a single organization by domain. Costs 1 credit.
@@ -248,10 +263,9 @@ class ApolloClient:
             print("  enrich_organization: no domain or name provided")
             return None
 
-        payload = {
-            "domain": domain,
-            "api_key": self.api_key,
-        }
+        payload = {"domain": domain}
+        if self.api_key:
+            payload["api_key"] = self.api_key
         params = urllib.parse.urlencode(payload)
         return self._request("GET", f"/organizations/enrich?{params}")
 
@@ -289,7 +303,7 @@ class ApolloClient:
             print(f"    _resolve_domain_from_name('{name}'): {e}")
             return None
 
-    # ── List Management ───────────────────────────────────────────
+    # -- List Management ---------------------------------------------------
 
     def create_list(self, name, list_type="contacts"):
         """Create a named list (label) in Apollo.
@@ -307,7 +321,7 @@ class ApolloClient:
         }
         return self._request("POST", "/labels", data=payload)
 
-    # ── Contact Management ────────────────────────────────────────
+    # -- Contact Management ------------------------------------------------
 
     def create_contact(self, person_data, label_ids=None):
         """Create a contact in Apollo CRM.

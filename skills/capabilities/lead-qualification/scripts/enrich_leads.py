@@ -3,7 +3,7 @@
 Batch LinkedIn Profile Enrichment via Apify
 
 Enriches a CSV of leads by bulk-scraping their LinkedIn profiles.
-Uses the supreme_coder/linkedin-profile-scraper Apify actor ($3/1k profiles, no cookies).
+Uses the harvestapi~linkedin-profile-scraper Apify actor ($3/1k profiles, no cookies).
 
 Usage:
     # Dry run — show cost estimate, don't call Apify
@@ -39,10 +39,16 @@ except ImportError:
     sys.exit(1)
 
 # --- Constants ---
-ACTOR_ID = "supreme_coder~linkedin-profile-scraper"
-BASE_URL = "https://api.apify.com/v2"
+ACTOR_ID = "harvestapi~linkedin-profile-scraper"
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
+if GOOSEWORKS_API_KEY:
+    BASE_URL = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify"
+else:
+    BASE_URL = "https://api.apify.com/v2"
 COST_PER_1K = 3.00  # $3 per 1,000 profiles
-ACTOR_URL = "https://console.apify.com/actors/supreme_coder~linkedin-profile-scraper"
+ACTOR_URL = "https://console.apify.com/actors/harvestapi~linkedin-profile-scraper"
 
 # --- .env loading ---
 script_dir = Path(__file__).parent
@@ -224,7 +230,7 @@ class LinkedInEnricher:
                 # Match results back to URLs and cache them
                 for item in items:
                     # Try to match by URL field in the response
-                    profile_url = item.get("url", item.get("profileUrl", item.get("linkedin_url", "")))
+                    profile_url = item.get("linkedinUrl", item.get("url", item.get("profileUrl", item.get("linkedin_url", ""))))
                     if profile_url:
                         normalized = normalize_linkedin_url(profile_url)
                         results[normalized] = item
@@ -241,7 +247,7 @@ class LinkedInEnricher:
                     items = self.enrich_batch(batch, timeout=timeout)
                     print(f"   Retry succeeded ({len(items)} results)")
                     for item in items:
-                        profile_url = item.get("url", item.get("profileUrl", item.get("linkedin_url", "")))
+                        profile_url = item.get("linkedinUrl", item.get("url", item.get("profileUrl", item.get("linkedin_url", ""))))
                         if profile_url:
                             normalized = normalize_linkedin_url(profile_url)
                             results[normalized] = item
@@ -335,9 +341,9 @@ def parse_enriched_profile(raw: Dict) -> Dict:
         "enriched_headline": str(headline or ""),
         "enriched_title": str(current_title or ""),
         "enriched_company": str(current_company or ""),
-        "enriched_location": str(raw.get("location", raw.get("geo", "")) or ""),
+        "enriched_location": (lambda loc: loc.get("linkedinText", "") if isinstance(loc, dict) else str(loc or ""))(raw.get("location", raw.get("geo", ""))),
         "enriched_industry": str(raw.get("industry", "") or ""),
-        "enriched_connections": str(raw.get("connections", raw.get("connectionsCount", "")) or ""),
+        "enriched_connections": str(raw.get("connectionsCount", raw.get("connections", "")) or ""),
         "enriched_about": str(raw.get("about", raw.get("summary", "")) or ""),
         "enriched_education": education_str,
         "enriched_experience_years": experience_years,
@@ -467,10 +473,9 @@ Environment:
         sys.exit(0)
 
     # Check API token
-    api_token = os.getenv("APIFY_API_TOKEN")
+    api_token = GOOSEWORKS_API_KEY or os.getenv("APIFY_API_TOKEN")
     if not api_token:
-        print("Error: APIFY_API_TOKEN not set")
-        print("Get token: https://console.apify.com/account/integrations")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.")
         sys.exit(1)
 
     if need_enrichment == 0 and cached_count > 0:

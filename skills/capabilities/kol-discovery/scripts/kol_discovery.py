@@ -26,15 +26,21 @@ import urllib.request
 from datetime import datetime
 
 # ── Apify Guard (shared cost protection) ────────────────────────────────────
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_script_dir, "..", "..", "..", ".."))  # repo root
+sys.path.insert(0, os.path.join(_script_dir, ".."))              # skill dir (standalone install)
 from tools.apify_guard import (
     guarded_apify_run, confirm_cost, set_limit, set_auto_confirm,
     ApifyLimitReached, get_run_count, get_run_limit,
 )
 
+# ── GooseWorks Proxy ─────────────────────────────────────────────────────────
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
 # ── Apify Actor IDs ──────────────────────────────────────────────────────────
 
-POST_SEARCH_ACTOR_ID = "buIWk2uOUzTmcLsuB"  # harvestapi/linkedin-post-search
+POST_SEARCH_ACTOR_ID = "apimaestro~linkedin-posts-search-scraper-no-cookies"
 
 OUTPUT_COLS = [
     "Rank",
@@ -114,7 +120,10 @@ def load_env():
 
 def apify_dataset(run_id, token, limit=50000):
     """Fetch dataset items from a completed run."""
-    url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    if GOOSEWORKS_API_KEY:
+        url = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    else:
+        url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
     return json.load(urllib.request.urlopen(url, timeout=120))
 
 
@@ -160,7 +169,7 @@ def search_posts(token, config, test_mode=False):
     print(f"\n{'='*60}")
     print(f"Step 1: Domain Keyword Search ({len(keywords)} keywords)")
     print(f"{'='*60}")
-    print(f"  Actor: harvestapi/linkedin-post-search")
+    print(f"  Actor: {POST_SEARCH_ACTOR_ID}")
     print(f"  Est. cost: ~${len(keywords) * 0.10:.2f}")
 
     max_posts = config["max_posts_per_keyword"]
@@ -172,24 +181,25 @@ def search_posts(token, config, test_mode=False):
             run_id = guarded_apify_run(
                 POST_SEARCH_ACTOR_ID,
                 {
-                    "searchQueries": [kw],
-                    "maxPosts": max_posts,
-                    "postedLimit": "month",
-                    "sortBy": "relevance",
+                    "keyword": kw,
+                    "maxItems": max_posts,
                 },
                 token,
             )
             items = apify_dataset(run_id, token, limit=500)
             new_posts = 0
             for item in items:
-                if item.get("type") != "post":
+                # Skip non-post items (old actor had type field, new actor returns only posts)
+                if item.get("type") and item.get("type") != "post":
                     continue
 
-                content = item.get("content", "") or item.get("text", "") or ""
+                content = item.get("text", "") or item.get("content", "") or ""
+                if isinstance(content, dict):
+                    content = content.get("text", "") or ""
                 if should_exclude_post(content, config):
                     continue
 
-                post_id = item.get("id", "")
+                post_id = item.get("activity_id", "") or item.get("id", "")
                 if post_id and post_id not in all_posts:
                     all_posts[post_id] = {**item, "_keyword": kw}
                     new_posts += 1
@@ -222,29 +232,38 @@ def aggregate_authors(all_posts, config):
         if not isinstance(author, dict):
             continue
 
-        author_url = author.get("linkedinUrl", "")
+        author_url = author.get("profile_url", "") or author.get("linkedinUrl", "")
         # Strip query params from author URL for consistent dedup
         if "?" in author_url:
             author_url = author_url.split("?")[0]
         name = author.get("name", "")
-        headline = author.get("info", "") or ""
+        headline = author.get("headline", "") or author.get("info", "") or ""
 
         # Skip company pages
         author_type = author.get("type", "")
         if not author_url or not name or "/company/" in author_url or author_type == "company":
             continue
 
-        # Extract engagement — handle nested engagement dict (harvestapi format)
+        # Extract engagement — handle both apimaestro (stats) and harvestapi (engagement) formats
+        stats = post.get("stats", {}) or {}
         eng = post.get("engagement", {}) or {}
-        if isinstance(eng, dict) and ("likes" in eng or "comments" in eng):
+        if isinstance(stats, dict) and ("total_reactions" in stats or "comments" in stats):
+            # apimaestro format
+            reactions = stats.get("total_reactions", 0) or 0
+            comments_count = stats.get("comments", 0) or 0
+        elif isinstance(eng, dict) and ("likes" in eng or "comments" in eng):
+            # harvestapi format
             reactions = eng.get("likes", 0) or 0
             comments_count = eng.get("comments", 0) or 0
         else:
             reactions = post.get("totalReactionCount", 0) or 0
             comments_count = post.get("commentsCount", 0) or 0
         engagement = reactions + comments_count
-        post_url = post.get("linkedinUrl", "") or ""
-        content = (post.get("content", "") or post.get("text", "") or "")[:200]
+        post_url = post.get("post_url", "") or post.get("linkedinUrl", "") or ""
+        text_content = post.get("text", "") or ""
+        if isinstance(text_content, dict):
+            text_content = text_content.get("text", "") or ""
+        content = (text_content or post.get("content", "") or "")[:200]
         keyword = post.get("_keyword", "")
 
         if author_url not in authors:
@@ -499,9 +518,9 @@ def main():
     set_auto_confirm(args.yes)
 
     env = load_env()
-    token = env.get("APIFY_API_TOKEN", "")
+    token = GOOSEWORKS_API_KEY or env.get("APIFY_API_TOKEN", "")
     if not token:
-        print("ERROR: APIFY_API_TOKEN not found in .env")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.", file=sys.stderr)
         sys.exit(1)
 
     client_name = config["client_name"]

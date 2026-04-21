@@ -27,8 +27,9 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 # Add project root to path for imports
-_project_root = Path(__file__).resolve().parents[4]
-sys.path.insert(0, str(_project_root))
+_script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(_script_dir.parents[3]))  # repo root
+sys.path.insert(0, str(_script_dir.parent))       # skill dir (standalone install)
 
 from tools.supabase.supabase_client import SupabaseClient
 from tools.apify_guard import (
@@ -41,11 +42,20 @@ from tools.apify_guard import (
 )
 
 
+# ── GooseWorks Proxy ─────────────────────────────────────────────────────────
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
+if GOOSEWORKS_API_KEY:
+    APIFY_BASE_URL = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify"
+else:
+    APIFY_BASE_URL = "https://api.apify.com/v2"
+
 # ── Constants ─────────────────────────────────────────────────────────────────
 
 APIFY_ACTOR_JOB_SEARCH = "harvestapi~linkedin-job-search"
 APIFY_ACTOR_PROFILE_POSTS = "harvestapi/linkedin-profile-posts"
-APIFY_ACTOR_PROFILE_SCRAPER = "supreme_coder/linkedin-profile-scraper"
+APIFY_ACTOR_PROFILE_SCRAPER = "harvestapi~linkedin-profile-scraper"
 
 SIGNAL_STRENGTHS = {
     "headcount_growth": 6,
@@ -318,7 +328,7 @@ def scan_job_postings(sb, companies, config, client_name, run_id, apify_token):
         try:
             actor_run_id = guarded_apify_run(APIFY_ACTOR_JOB_SEARCH, payload, apify_token)
             # Fetch dataset from run
-            check_url = f"https://api.apify.com/v2/actor-runs/{actor_run_id}?token={apify_token}"
+            check_url = f"{APIFY_BASE_URL}/actor-runs/{actor_run_id}?token={apify_token}"
             check = json.load(urllib.request.urlopen(check_url, timeout=30))
             dataset_id = check["data"]["defaultDatasetId"]
             jobs = fetch_dataset(dataset_id, apify_token)
@@ -400,7 +410,7 @@ def scan_linkedin_content(sb, people, config, client_name, run_id, apify_token):
 
         try:
             actor_run_id = guarded_apify_run(APIFY_ACTOR_PROFILE_POSTS, payload, apify_token)
-            check_url = f"https://api.apify.com/v2/actor-runs/{actor_run_id}?token={apify_token}"
+            check_url = f"{APIFY_BASE_URL}/actor-runs/{actor_run_id}?token={apify_token}"
             check = json.load(urllib.request.urlopen(check_url, timeout=30))
             dataset_id = check["data"]["defaultDatasetId"]
             posts = fetch_dataset(dataset_id, apify_token)
@@ -553,7 +563,7 @@ def scan_profile_changes(sb, people, config, client_name, run_id, apify_token):
 
         try:
             actor_run_id = guarded_apify_run(APIFY_ACTOR_PROFILE_SCRAPER, payload, apify_token)
-            check_url = f"https://api.apify.com/v2/actor-runs/{actor_run_id}?token={apify_token}"
+            check_url = f"{APIFY_BASE_URL}/actor-runs/{actor_run_id}?token={apify_token}"
             check = json.load(urllib.request.urlopen(check_url, timeout=30))
             dataset_id = check["data"]["defaultDatasetId"]
             profiles = fetch_dataset(dataset_id, apify_token)
@@ -779,9 +789,11 @@ def run_scan(sb, config, run_id, auto_confirm=False, test_mode=False, dry_run=Fa
     tam_status = scope.get("tam_status", "active")
     lead_statuses = scope.get("person_lead_statuses", ["monitoring", "signal_detected", "qualified"])
 
-    # Get Apify token
-    apify_token_env = config.get("apify_token_env", "APIFY_TOKEN")
-    apify_token = os.environ.get(apify_token_env, "")
+    # Get Apify token (prefer GooseWorks proxy key)
+    apify_token = GOOSEWORKS_API_KEY
+    if not apify_token:
+        apify_token_env = config.get("apify_token_env", "APIFY_TOKEN")
+        apify_token = os.environ.get(apify_token_env, "")
 
     if auto_confirm:
         set_auto_confirm(True)

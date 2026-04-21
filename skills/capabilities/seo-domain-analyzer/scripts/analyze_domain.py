@@ -22,7 +22,14 @@ except ImportError:
     print("Error: requests library required. Install with: pip install requests", file=sys.stderr)
     sys.exit(1)
 
-APIFY_BASE = "https://api.apify.com/v2"
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+
+if GOOSEWORKS_API_KEY:
+    APIFY_BASE = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify"
+else:
+    APIFY_BASE = "https://api.apify.com/v2"
+
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; SEOAnalyzerBot/1.0)"}
 
 # Apify actor IDs
@@ -91,16 +98,17 @@ def fetch_semrush_data(domain, token):
     """Get domain overview from Semrush via Apify scraper."""
     print("\n--- Fetching Semrush Data ---", file=sys.stderr)
 
+    # Try current actor input format (domains field)
     input_data = {
-        "urls": [f"https://www.semrush.com/analytics/overview/?q={domain}&searchType=domain"]
+        "domains": [domain]
     }
 
     results = run_apify_actor(SEMRUSH_ACTOR, input_data, token, timeout=120)
 
     if not results:
         print("  [WARN] No Semrush data returned, trying alternate input format...", file=sys.stderr)
-        # Try alternate input format
-        input_data = {"urls": [f"https://{domain}"]}
+        # Try legacy input format (urls field)
+        input_data = {"urls": [f"https://www.semrush.com/analytics/overview/?q={domain}&searchType=domain"]}
         results = run_apify_actor(SEMRUSH_ACTOR, input_data, token, timeout=120)
 
     if not results or len(results) == 0:
@@ -480,7 +488,7 @@ def main():
     domain = args.domain.replace("https://", "").replace("http://", "").rstrip("/")
     competitors = [c.strip() for c in args.competitors.split(",") if c.strip()] if args.competitors else None
     keywords = [k.strip() for k in args.keywords.split(",") if k.strip()] if args.keywords else None
-    token = args.apify_token or os.environ.get("APIFY_API_TOKEN")
+    token = args.apify_token or GOOSEWORKS_API_KEY or os.environ.get("APIFY_API_TOKEN")
 
     result = analyze_domain(
         domain=domain,

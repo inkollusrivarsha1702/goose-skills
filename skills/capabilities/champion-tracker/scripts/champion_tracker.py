@@ -96,8 +96,13 @@ else:
         print("Error: requests library required. Install with: pip3 install requests", file=sys.stderr)
         sys.exit(1)
 
-    _ACTOR_ID = "supreme_coder~linkedin-profile-scraper"
-    _BASE_URL = "https://api.apify.com/v2"
+    _ACTOR_ID = "harvestapi~linkedin-profile-scraper"
+    _GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+    _GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
+    if _GOOSEWORKS_API_KEY:
+        _BASE_URL = f"{_GOOSEWORKS_API_BASE}/v1/proxy/apify"
+    else:
+        _BASE_URL = "https://api.apify.com/v2"
     _COST_PER_1K = 3.00
 
     def normalize_linkedin_url(url: str) -> str:
@@ -126,13 +131,20 @@ else:
         headline = raw.get("headline", raw.get("title", raw.get("tagline", "")))
         if not current_title and headline:
             current_title = headline
+        # Location can be a string or an object with linkedinText/parsed
+        location_raw = raw.get("location", raw.get("geo", ""))
+        if isinstance(location_raw, dict):
+            location = location_raw.get("linkedinText", "") or location_raw.get("parsed", {}).get("text", "")
+        else:
+            location = str(location_raw or "")
+
         return {
             "enriched_headline": str(headline or ""),
             "enriched_title": str(current_title or ""),
             "enriched_company": str(current_company or ""),
-            "enriched_location": str(raw.get("location", raw.get("geo", "")) or ""),
+            "enriched_location": location,
             "enriched_industry": str(raw.get("industry", "") or ""),
-            "enriched_connections": str(raw.get("connections", raw.get("connectionsCount", "")) or ""),
+            "enriched_connections": str(raw.get("connectionsCount", raw.get("connections", "")) or ""),
             "enriched_about": str(raw.get("about", raw.get("summary", "")) or ""),
             "enrichment_status": "success",
         }
@@ -178,7 +190,7 @@ else:
                     items = self.enrich_batch(batch, timeout=timeout)
                     print(f"done ({len(items)} results)")
                     for item in items:
-                        profile_url = item.get("url", item.get("profileUrl", item.get("linkedin_url", "")))
+                        profile_url = item.get("linkedinUrl", item.get("url", item.get("profileUrl", item.get("linkedin_url", ""))))
                         if profile_url:
                             results[normalize_linkedin_url(profile_url)] = item
                 except Exception as e:
@@ -597,10 +609,9 @@ def cmd_init(args):
         return
 
     # Check API token
-    api_token = os.getenv("APIFY_API_TOKEN")
+    api_token = os.getenv("GOOSEWORKS_API_KEY") or os.getenv("APIFY_API_TOKEN")
     if not api_token:
-        print("Error: APIFY_API_TOKEN not set")
-        print("Get token: https://console.apify.com/account/integrations")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.", file=sys.stderr)
         sys.exit(1)
 
     # Cost confirmation
@@ -728,9 +739,9 @@ def cmd_check(args):
         return
 
     # Check API token
-    api_token = os.getenv("APIFY_API_TOKEN")
+    api_token = os.getenv("GOOSEWORKS_API_KEY") or os.getenv("APIFY_API_TOKEN")
     if not api_token:
-        print("Error: APIFY_API_TOKEN not set")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.", file=sys.stderr)
         sys.exit(1)
 
     if not unique_urls:

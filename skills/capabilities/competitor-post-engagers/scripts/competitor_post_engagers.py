@@ -28,7 +28,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 # ── Apify Guard (shared cost protection) ────────────────────────────────────
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".."))
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_script_dir, "..", "..", "..", ".."))  # repo root
+sys.path.insert(0, os.path.join(_script_dir, ".."))                   # skill dir (standalone install)
 from tools.apify_guard import (
     guarded_apify_run, confirm_cost, set_limit, set_auto_confirm,
     ApifyLimitReached, get_run_count, get_run_limit,
@@ -37,6 +39,10 @@ from tools.apify_guard import (
 # ── Apollo Client (company enrichment) ──────────────────────────────────────
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "apollo-lead-finder", "scripts"))
 from apollo_client import ApolloClient
+
+# ── GooseWorks Proxy ─────────────────────────────────────────────────────────
+GOOSEWORKS_API_BASE = os.environ.get("GOOSEWORKS_API_BASE", "https://api.gooseworks.ai")
+GOOSEWORKS_API_KEY = os.environ.get("GOOSEWORKS_API_KEY")
 
 # ── Apify Actor IDs ──────────────────────────────────────────────────────────
 
@@ -135,7 +141,10 @@ def load_env():
 
 def apify_dataset(run_id, token, limit=50000):
     """Fetch dataset items from a completed run."""
-    url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    if GOOSEWORKS_API_KEY:
+        url = f"{GOOSEWORKS_API_BASE}/v1/proxy/apify/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
+    else:
+        url = f"https://api.apify.com/v2/actor-runs/{run_id}/dataset/items?token={token}&limit={limit}"
     return json.load(urllib.request.urlopen(url, timeout=120))
 
 
@@ -223,7 +232,7 @@ def scrape_company_posts(company_urls, token, config):
                 "maxComments": max_comments,
             }
 
-            run_id = guarded_apify_run(COMPANY_POSTS_ACTOR_ID, payload, token, wait_secs=600)
+            run_id = guarded_apify_run(COMPANY_POSTS_ACTOR_ID, payload, token, timeout=600)
             items = apify_dataset(run_id, token)
             print(f"    Retrieved {len(items)} total items")
 
@@ -777,9 +786,9 @@ def main():
         sys.exit(1)
 
     env = load_env()
-    token = env.get("APIFY_API_TOKEN", "")
+    token = GOOSEWORKS_API_KEY or env.get("APIFY_API_TOKEN", "")
     if not token:
-        print("ERROR: APIFY_API_TOKEN not found in .env")
+        print("Error: Set GOOSEWORKS_API_KEY or APIFY_API_TOKEN env var.", file=sys.stderr)
         sys.exit(1)
 
     run_name = config["name"]
