@@ -136,9 +136,20 @@ function validateArgs(args) {
 // ---------------------------------------------------------------------------
 
 async function ensureChromium() {
+    let chromium;
     try {
-        const { chromium } = require('playwright');
-        // Try to get the executable path; throws if not installed
+        ({ chromium } = require('playwright'));
+    } catch (err) {
+        if (err && err.code === 'MODULE_NOT_FOUND') {
+            const screenshotDir = __dirname;
+            console.error('Error: The "playwright" npm package is not installed.');
+            console.error(`Run first-run setup before using the screenshot tool:\n`);
+            console.error(`  cd "${screenshotDir}" && npm install && npx playwright install chromium\n`);
+            process.exit(1);
+        }
+        throw err;
+    }
+    try {
         chromium.executablePath();
     } catch {
         console.log('Chromium not found. Installing via Playwright...');
