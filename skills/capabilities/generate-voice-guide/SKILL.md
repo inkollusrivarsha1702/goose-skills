@@ -33,14 +33,14 @@ Interactive:
 
 Args mode:
 ```
-/generate-voice-guide --profile @shivsakhuja --platforms x,linkedin --output ~/.goose-skills/voice-guides
+/generate-voice-guide --profile @GooseworksAI --platforms x,linkedin --output ~/.goose-skills/voice-guides
 ```
 
 ## Discovery Questions (front-loaded)
 
 Ask these up front if not supplied via flags:
 
-1. **Whose voice?** "Paste an X/Twitter handle (e.g. `@shivsakhuja`), a LinkedIn profile URL, or both. You can mimic your own voice or someone else's."
+1. **Whose voice?** "Paste an X/Twitter handle (e.g. `@GooseworksAI`), a LinkedIn profile URL, or both. You can mimic your own voice or someone else's."
 2. **Which platforms?** "Generate a voice guide for X, LinkedIn, or both?"
 3. **How many posts to scan?** "Default: 50 X posts / 25 LinkedIn posts. Higher = more signal, more tokens, slower."
 4. **Save location?** "Default: `~/.goose-skills/voice-guides/voice-{x,linkedin}.md`. Ok to use that, or prefer a different path?"

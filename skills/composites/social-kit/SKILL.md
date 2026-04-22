@@ -217,4 +217,4 @@ Voice guides + config at `~/.goose-skills/voice-guides/` and `~/.goose-skills/co
 - **When the recommended format feels off, it probably is.** The heuristic is a starting point — trust your read of the brief more than the recommendation.
 - **Pair drafts with graphics intentionally.** A long `mechanism-breakdown` X variant pairs with a carousel. A short `hype` variant pairs with a poster. The file naming makes these pairings easy to spot.
 - **Iterate on voice before iterating on content.** If your drafts feel off, 80% of the fix is re-running `/generate-voice-guide` with more recent posts or more iterations — not rewriting the skill prompts.
-- **Output path convention:** matches the Shiv-canonical `content/YYYY-MM-DD-<topic>/` layout already in use. Keep it consistent for easier cross-referencing later.
+- **Output path convention:** uses a standard `content/YYYY-MM-DD-<topic>/` layout. Keep it consistent for easier cross-referencing later.
