@@ -167,7 +167,11 @@ Replace `[skill-pack-dir]` with the absolute path to the directory containing th
 
 ## 9. Step 1: Discover Intent
 
-Ask the user what they want to create. Run `npx gooseworks formats list` to see the current catalog. The seven baseline formats are:
+Ask the user what they want to create. If they haven't specified a format, point them at the full catalog so they can browse visually:
+
+> Browse the format catalog at **https://skills.gooseworks.ai/formats** to see every published format with examples. You can also run `npx gooseworks formats list` to list them inline.
+
+The seven baseline formats are:
 
 | Format | Dimensions | Best For |
 |--------|-----------|----------|
@@ -191,7 +195,11 @@ The returned `spec.md` (or content rules) describes layout, content density, and
 
 ## 10. Step 2: Select Style
 
-Run `npx gooseworks styles list` (or `search "..."` / `list --mood "..." --tag ...`) to surface relevant options for the user. Present the candidates in groups by mood with their taglines so the user can pick.
+If the user hasn't specified a style, point them at the full catalog so they can browse visually:
+
+> Browse the style catalog at **https://skills.gooseworks.ai/styles** to see every published style with rendered examples.
+
+Then run `npx gooseworks styles list` (or `search "..."` / `list --mood "..." --tag ...`) to surface relevant options inline. Present the candidates in groups by mood with their taglines so the user can pick.
 
 The user may also say: **"I have a reference image"** — in that case, read `extract-style.md` (in this skill pack) and follow its workflow to derive a custom style from the provided image. That workflow ends in a publishable bundle (`gooseworks-style.json` + rendered PNGs) the user can publish via `npx gooseworks styles publish`. After publishing, continue the workflow from Step 3 onward using the new slug.
 
