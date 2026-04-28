@@ -167,11 +167,7 @@ Replace `[skill-pack-dir]` with the absolute path to the directory containing th
 
 ## 9. Step 1: Discover Intent
 
-Ask the user what they want to create. If they haven't specified a format, point them at the full catalog so they can browse visually:
-
-> Browse the format catalog at **https://skills.gooseworks.ai/formats** to see every published format with examples. You can also run `npx gooseworks formats list` to list them inline.
-
-The seven baseline formats are:
+Ask the user what they want to create. Run `npx gooseworks formats list` to see the current catalog. The seven baseline formats are:
 
 | Format | Dimensions | Best For |
 |--------|-----------|----------|
