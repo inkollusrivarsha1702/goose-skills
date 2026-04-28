@@ -58,8 +58,8 @@
         { "slug": "fluid-diagram", "name": "Fluid Diagram", "tagline": "Coral red frame + dark maroon panel + flowing connection diagrams." },
         { "slug": "particle-bloom", "name": "Particle Bloom", "tagline": "Pumpkin orange + swirling white halftone particles behind stacked display sans." },
         { "slug": "coral-halftone", "name": "Coral Halftone", "tagline": "Coral red + halftone-dot silhouette + dark-brown condensed sans + giant numeral." },
-        { "slug": "vermilion-folio", "name": "Vermilion Folio", "tagline": "Vermilion outer frame + onyx inner panel + cream high-contrast serif + hand-drawn botanical line illustrations." },
-        { "slug": "neon-venn", "name": "Neon Venn", "tagline": "Charcoal canvas + overlapping hairline Venn rings + neon-lime pill labels floating inside the lobes." }
+        { "slug": "vermilion-folio", "name": "Vermilion Folio", "tagline": "Vermilion outer frame + onyx inner panel + cream high-contrast serif headlines + tracked-uppercase metadata." },
+        { "slug": "neon-venn", "name": "Neon Venn", "tagline": "Charcoal canvas + neon-lime pill labels + Space Grotesk display + hairline white-stroke structure." }
       ]
     },
     {
@@ -72,7 +72,7 @@
         { "slug": "ink-doodle-event", "name": "Ink Doodle Event", "tagline": "Kraft paper + loose hand-drawn ink character + Yellowtail script." },
         { "slug": "botanical-illustration", "name": "Botanical Illustration", "tagline": "Olive-green duotone magazine cover with dense botanical illustrations." },
         { "slug": "woodblock-folk", "name": "Woodblock Folk", "tagline": "Royal blue + chartreuse grid panels with hand-cut woodblock botanical illustrations." },
-        { "slug": "museum-coral", "name": "Museum Coral", "tagline": "Coral pink exhibit poster + vintage scientific engraving + condensed sans block stack." },
+        { "slug": "museum-coral", "name": "Museum Coral", "tagline": "Coral pink exhibit poster + plum date plate + condensed sans block stack on generous negative space." },
         { "slug": "midcentury-ad-grid", "name": "Mid-Century Ad Grid", "tagline": "Mustard / sky-blue / cream grid panels + B&W product photography + slab serif logotype." }
       ]
     },
@@ -84,7 +84,7 @@
         { "slug": "card-toss", "name": "Card Toss", "tagline": "Scattered tilted cards with sticky-note energy." },
         { "slug": "venn-infographic", "name": "Venn Infographic", "tagline": "Translucent three-circle Venn diagrams + floating info cards." },
         { "slug": "social-post-card", "name": "Social Post Card", "tagline": "Blurred real scene + simulated Instagram post card as hero." },
-        { "slug": "isometric-sage", "name": "Isometric Sage", "tagline": "Sage green + isometric 3D illustrations + split-word typography." },
+        { "slug": "isometric-sage", "name": "Isometric Sage", "tagline": "Sage green canvas + single hero title + clean typography-first layouts." },
         { "slug": "orbit-purple", "name": "Orbit Purple", "tagline": "Violet background + tri-variant cards with orbital line illustrations." },
         { "slug": "cobalt-network", "name": "Cobalt Network", "tagline": "Cobalt-blue canvas + white network-node diagrams + numbered figure captions + research-report status bar." },
         { "slug": "industrial-folio", "name": "Industrial Folio", "tagline": "Cream canvas + vermilion accent slab + isometric blueprint linework + tracked-uppercase engineering-manual metadata." }
