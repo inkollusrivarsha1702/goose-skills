@@ -29,6 +29,7 @@
     .row-num { width: 36px; flex-shrink:0; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--color-cream-quiet); }
     .row-label { width: 220px; flex-shrink:0; font-family: var(--font-display); font-size: 22px; font-weight: 500; line-height: 1.15; letter-spacing: -0.3px; color: var(--color-cream); }
     .row-bar { flex: 1; height: 32px; position: relative; overflow: hidden; }
+    .bar { height: 100%; background: var(--color-vermilion); }
     .row-value { width: 120px; flex-shrink:0; font-family: var(--font-display); font-size: 44px; font-weight: 500; letter-spacing: -1px; line-height: 1; color: var(--color-cream); text-align: right; }
   </style>
 </head>
@@ -44,51 +45,31 @@
       <div class="row">
         <div class="row-num">01</div>
         <div class="row-label">Ship fast,<br>learn faster</div>
-        <div class="row-bar">
-          <svg width="100%" height="32" viewBox="0 0 600 32" preserveAspectRatio="none">
-            <ellipse cx="60" cy="16" rx="60" ry="13" fill="#E83A19" stroke="#1F1F1F" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="row-bar"><div class="bar" style="width:120px;"></div></div>
         <div class="row-value">7d</div>
       </div>
       <div class="row">
         <div class="row-num">02</div>
         <div class="row-label">Build AI<br>into the core</div>
-        <div class="row-bar">
-          <svg width="100%" height="32" viewBox="0 0 600 32" preserveAspectRatio="none">
-            <ellipse cx="200" cy="16" rx="200" ry="13" fill="#E83A19" stroke="#1F1F1F" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="row-bar"><div class="bar" style="width:400px;"></div></div>
         <div class="row-value">84%</div>
       </div>
       <div class="row">
         <div class="row-num">03</div>
         <div class="row-label">Hire for<br>leverage</div>
-        <div class="row-bar">
-          <svg width="100%" height="32" viewBox="0 0 600 32" preserveAspectRatio="none">
-            <ellipse cx="80" cy="16" rx="80" ry="13" fill="#E83A19" stroke="#1F1F1F" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="row-bar"><div class="bar" style="width:160px;"></div></div>
         <div class="row-value">6 ppl</div>
       </div>
       <div class="row">
         <div class="row-num">04</div>
         <div class="row-label">Obsess over<br>first 10 users</div>
-        <div class="row-bar">
-          <svg width="100%" height="32" viewBox="0 0 600 32" preserveAspectRatio="none">
-            <ellipse cx="50" cy="16" rx="50" ry="13" fill="#E83A19" stroke="#1F1F1F" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="row-bar"><div class="bar" style="width:100px;"></div></div>
         <div class="row-value">10</div>
       </div>
       <div class="row last">
         <div class="row-num">05</div>
         <div class="row-label">Revenue<br>beats runway</div>
-        <div class="row-bar">
-          <svg width="100%" height="32" viewBox="0 0 600 32" preserveAspectRatio="none">
-            <ellipse cx="160" cy="16" rx="160" ry="13" fill="#E83A19" stroke="#1F1F1F" stroke-width="1"/>
-          </svg>
-        </div>
+        <div class="row-bar"><div class="bar" style="width:320px;"></div></div>
         <div class="row-value">$5M</div>
       </div>
     </div>

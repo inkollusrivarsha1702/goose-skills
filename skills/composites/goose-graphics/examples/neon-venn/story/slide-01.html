@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Neon Venn — Story</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
-  .canvas { position: relative; width: 1080px; height: 1920px; padding: 100px 72px 72px; }
-  .top-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
-  .brand { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
-  .meta { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-  .eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 56px; }
-  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 96px; font-weight: 600; line-height: 0.95; letter-spacing: -2.5px; color: #fff; margin-top: 16px; }
-  h1 .lime { color: #D6FF3D; }
-  .lead { font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.55; color: rgba(255,255,255,0.72); margin-top: 26px; max-width: 720px; }
-
-  .venn { position: absolute; left: 50px; top: 880px; width: 980px; height: 700px; }
-  .col-cap { position: absolute; top: 0; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-  .ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.10); border-radius: 50%; }
-  .pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 999px; white-space: nowrap; }
-
-  .cta { position: absolute; left: 72px; right: 72px; bottom: 140px; display: flex; align-items: center; gap: 16px; }
-  .cta-pill { background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; padding: 14px 28px; border-radius: 999px; }
-  .cta-text { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.72); }
-
-  .footer { position: absolute; left: 72px; right: 72px; bottom: 56px; display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.10); }
-  .footer-l { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
-  .footer-r { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-</style>
+  <meta charset="UTF-8">
+  <title>5 Tips — Neon Venn (Story)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-canvas: #0E0F11;
+      --color-lime: #D6FF3D;
+      --color-white: #FFFFFF;
+      --color-white-72: rgba(255,255,255,0.72);
+      --color-white-45: rgba(255,255,255,0.45);
+      --color-rule: rgba(255,255,255,0.28);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    body { background: var(--color-canvas); padding: 80px 72px; font-family: var(--font-body); color: var(--color-white); position: relative; }
+    .brand { font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+    .col-cap { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--color-white-45); }
+    .pill { display: inline-block; background: var(--color-lime); color: var(--color-canvas); font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 999px; margin: 0 6px 12px 0; }
+    .num { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--color-white-45); letter-spacing: 0.4px; }
+  </style>
 </head>
 <body>
-<div class="canvas">
-  <div class="top-row">
-    <span class="brand">FOUNDERS<span style="color:#D6FF3D">.</span></span>
-    <span class="meta">STORY / 2026</span>
+
+  <!-- Header -->
+  <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:20px; border-bottom:1.5px solid var(--color-rule);">
+    <p class="brand">FOUNDERS.</p>
+    <p class="col-cap">No. 026</p>
   </div>
 
-  <p class="eyebrow">2026 Field Guide</p>
-  <h1>5 Tips for<br>Building a<br>Startup<span class="lime">.</span></h1>
-  <p class="lead">Three lobes. Five moves. One year that rewards founders who live in the intersections.</p>
-
-  <div class="venn">
-    <p class="col-cap" style="left: 90px;">Velocity</p>
-    <p class="col-cap" style="left: 425px;">Leverage</p>
-    <p class="col-cap" style="left: 770px;">Discipline</p>
-
-    <div class="ring" style="top: 50px; left: 0; width: 480px; height: 480px;"></div>
-    <div class="ring" style="top: 50px; left: 250px; width: 480px; height: 480px;"></div>
-    <div class="ring" style="top: 50px; left: 500px; width: 480px; height: 480px;"></div>
-
-    <span class="pill" style="top: 220px; left: 30px;">Ship fast</span>
-    <span class="pill" style="top: 320px; left: 60px;">10 users</span>
-    <span class="pill" style="top: 260px; left: 320px;">AI core</span>
-    <span class="pill" style="top: 380px; left: 290px;">Leverage</span>
-    <span class="pill" style="top: 290px; left: 700px;">Revenue</span>
+  <!-- Hero -->
+  <div style="margin-top:120px;">
+    <p class="col-cap">2026 Playbook</p>
+    <h1 style="font-family:var(--font-display); font-size:128px; font-weight:600; letter-spacing:-3px; line-height:0.96; color:var(--color-white); margin-top:18px;">
+      5 Tips<br>for Building<br>a Startup<span style="color:var(--color-lime);">.</span>
+    </h1>
+    <p style="font-family:var(--font-body); font-size:18px; font-weight:400; line-height:1.55; color:var(--color-white-72); max-width:560px; margin-top:24px;">
+      Five moves the operators of 2026 keep coming back to.
+    </p>
   </div>
 
-  <div class="cta">
-    <span class="cta-pill">Read the guide</span>
-    <span class="cta-text">@founders.field</span>
+  <!-- Pill stack between two hairline rules -->
+  <div style="margin-top:120px; padding:48px 0; border-top:1.5px solid var(--color-rule); border-bottom:1.5px solid var(--color-rule);">
+    <p class="col-cap" style="margin-bottom:32px;">The 5 Pills</p>
+    <div style="display:flex; gap:16px; align-items:center; margin-bottom:18px;">
+      <p class="num" style="width:28px;">01</p>
+      <span class="pill" style="margin:0;">Ship fast, learn faster</span>
+    </div>
+    <div style="display:flex; gap:16px; align-items:center; margin-bottom:18px;">
+      <p class="num" style="width:28px;">02</p>
+      <span class="pill" style="margin:0;">Build AI into the core</span>
+    </div>
+    <div style="display:flex; gap:16px; align-items:center; margin-bottom:18px;">
+      <p class="num" style="width:28px;">03</p>
+      <span class="pill" style="margin:0;">Hire for leverage</span>
+    </div>
+    <div style="display:flex; gap:16px; align-items:center; margin-bottom:18px;">
+      <p class="num" style="width:28px;">04</p>
+      <span class="pill" style="margin:0;">Obsess over 10 users</span>
+    </div>
+    <div style="display:flex; gap:16px; align-items:center;">
+      <p class="num" style="width:28px;">05</p>
+      <span class="pill" style="margin:0;">Revenue beats runway</span>
+    </div>
   </div>
 
-  <div class="footer">
-    <span class="footer-l">FOUNDERS<span style="color:#D6FF3D">.</span></span>
-    <span class="footer-r">2026 / VOL. 01</span>
+  <!-- Footer -->
+  <div style="position:absolute; bottom:80px; left:72px; right:72px; display:flex; justify-content:space-between; align-items:center; padding-top:20px; border-top:1.5px solid var(--color-rule);">
+    <p class="brand">FOUNDERS.</p>
+    <p class="col-cap">2026 / Vol. 01</p>
   </div>
-</div>
+
 </body>
 </html>

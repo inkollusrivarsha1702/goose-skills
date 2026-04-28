@@ -1,91 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Neon Venn — Tweet</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
-  .canvas { position: relative; width: 1080px; height: 1080px; }
+  <meta charset="UTF-8">
+  <title>5 Tips — Neon Venn (Tweet)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-canvas: #0E0F11;
+      --color-surface: #16181B;
+      --color-lime: #D6FF3D;
+      --color-white: #FFFFFF;
+      --color-white-72: rgba(255,255,255,0.72);
+      --color-white-45: rgba(255,255,255,0.45);
+      --color-rule: rgba(255,255,255,0.28);
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1080px; height: 1080px; overflow: hidden;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    body { background: var(--color-canvas); position: relative; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); }
 
-  /* Decorative Venn background */
-  .bg-ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); border-radius: 50%; }
-  .bg-pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 999px; white-space: nowrap; }
-  .bg-cap { position: absolute; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    /* Decorative background structure */
+    .bg-cap-tl { position: absolute; top: 56px; left: 56px; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--color-white-45); }
+    .bg-brand { position: absolute; top: 56px; right: 56px; font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--color-white); }
+    .bg-rule-top { position: absolute; top: 96px; left: 56px; right: 56px; height: 1.5px; background: var(--color-rule); }
+    .bg-rule-bottom { position: absolute; bottom: 96px; left: 56px; right: 56px; height: 1.5px; background: var(--color-rule); }
+    .bg-cap-bl { position: absolute; bottom: 56px; left: 56px; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--color-white-45); }
+    .bg-cap-br { position: absolute; bottom: 56px; right: 56px; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--color-white-45); }
+    .bg-pill { position: absolute; background: var(--color-lime); color: var(--color-canvas); font-family: var(--font-body); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; }
 
-  /* Tweet card */
-  .card { position: absolute; left: 90px; top: 290px; width: 900px; background: #16181B; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 36px 40px; box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
-  .card-head { display: flex; align-items: flex-start; gap: 16px; }
-  .avatar { width: 56px; height: 56px; border-radius: 50%; background: #D6FF3D; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #0E0F11; font-size: 22px; flex-shrink: 0; }
-  .head-text { flex: 1; min-width: 0; }
-  .name-row { display: flex; align-items: center; gap: 6px; }
-  .name { font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; color: #fff; }
-  .verified { width: 18px; height: 18px; background: #D6FF3D; color: #0E0F11; font-size: 11px; font-weight: 800; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
-  .handle { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-  .more { font-family: 'Inter', sans-serif; font-size: 18px; color: rgba(255,255,255,0.45); }
-
-  .body { font-family: 'Inter', sans-serif; font-size: 22px; line-height: 1.45; color: #fff; margin-top: 22px; }
-  .body .lime { color: #D6FF3D; font-weight: 600; }
-  .body .pill-inline { display: inline-block; background: #D6FF3D; color: #0E0F11; font-size: 17px; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin: 0 2px; }
-
-  .timestamp { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 22px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
-
-  .metrics { display: flex; gap: 32px; padding-top: 18px; }
-  .metric { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.45); }
-  .metric strong { color: #fff; font-weight: 600; }
-  .icon { width: 18px; height: 18px; opacity: 0.55; }
-</style>
+    /* Tweet card */
+    .card { position: relative; z-index: 2; width: 760px; background: #FFFFFF; border-radius: 18px; padding: 40px 44px 36px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+    .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--color-lime); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .avatar-initials { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--color-canvas); letter-spacing: -0.5px; }
+    .author-info { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+    .author-name { font-family: var(--font-body); font-size: 17px; font-weight: 700; color: #0f1419; line-height: 1.2; }
+    .author-handle { font-family: var(--font-body); font-size: 14px; color: #536471; line-height: 1.2; }
+    .x-logo { font-family: var(--font-body); font-size: 22px; font-weight: 800; color: #0f1419; letter-spacing: -1px; }
+    .body-headline { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: #0f1419; letter-spacing: -0.4px; margin-bottom: 18px; }
+    .tip-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 11px; }
+    .tip-num { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: #0f1419; flex-shrink: 0; min-width: 22px; padding-top: 2px; }
+    .tip-text { font-family: var(--font-body); font-size: 17px; font-weight: 400; line-height: 1.55; color: #0f1419; }
+    .body-coda { margin-top: 18px; font-family: var(--font-body); font-size: 16px; color: #536471; }
+    .card-footer { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
+    .timestamp { font-family: var(--font-body); font-size: 14px; color: #536471; }
+    .divider { width: 100%; height: 1px; background: #eff3f4; }
+    .metrics { display: flex; gap: 28px; }
+    .metric { font-family: var(--font-body); font-size: 14px; color: #536471; display: flex; align-items: center; gap: 6px; }
+    .metric-count { font-weight: 700; color: #0f1419; }
+  </style>
 </head>
 <body>
-<div class="canvas">
-  <!-- decorative Venn background -->
-  <span class="bg-cap" style="top: 100px; left: 200px;">Velocity</span>
-  <span class="bg-cap" style="top: 100px; left: 510px;">Leverage</span>
-  <span class="bg-cap" style="top: 100px; left: 820px;">Discipline</span>
 
-  <div class="bg-ring" style="top: 130px; left: 80px; width: 380px; height: 380px;"></div>
-  <div class="bg-ring" style="top: 130px; left: 350px; width: 380px; height: 380px;"></div>
-  <div class="bg-ring" style="top: 130px; left: 620px; width: 380px; height: 380px;"></div>
-
-  <span class="bg-pill" style="top: 220px; left: 130px;">Ship fast</span>
-  <span class="bg-pill" style="top: 200px; left: 880px;">Revenue</span>
-
-  <div class="bg-ring" style="top: 720px; left: 200px; width: 320px; height: 320px;"></div>
-  <div class="bg-ring" style="top: 720px; left: 460px; width: 320px; height: 320px;"></div>
-
-  <span class="bg-pill" style="top: 870px; left: 240px;">10 users</span>
-  <span class="bg-pill" style="top: 920px; left: 540px;">AI core</span>
-  <span class="bg-pill" style="top: 980px; left: 380px;">Leverage</span>
+  <!-- Decorative background -->
+  <p class="bg-cap-tl">Field Guide / No. 026</p>
+  <p class="bg-brand">FOUNDERS.</p>
+  <div class="bg-rule-top"></div>
+  <span class="bg-pill" style="top:140px; left:88px;">Velocity</span>
+  <span class="bg-pill" style="top:200px; right:88px;">Leverage</span>
+  <span class="bg-pill" style="bottom:200px; left:88px;">Discipline</span>
+  <span class="bg-pill" style="bottom:140px; right:88px;">2026</span>
+  <div class="bg-rule-bottom"></div>
+  <p class="bg-cap-bl">2026 / Vol. 01</p>
+  <p class="bg-cap-br">@founders</p>
 
   <!-- Tweet card -->
   <div class="card">
-    <div class="card-head">
-      <div class="avatar">M</div>
-      <div class="head-text">
-        <div class="name-row">
-          <span class="name">Maya Okafor</span>
-          <span class="verified">✓</span>
-        </div>
-        <div class="handle">@mayabuilds · Founder, Lattice Labs</div>
+    <div class="card-header">
+      <div class="avatar"><span class="avatar-initials">AR</span></div>
+      <div class="author-info">
+        <span class="author-name">Alex Rivera</span>
+        <span class="author-handle">@alexrivera &middot; Founder &amp; Operator</span>
       </div>
-      <span class="more">···</span>
+      <div class="x-logo">&#120143;</div>
     </div>
 
-    <div class="body">
-      Spent the weekend redrawing my 2026 plan. It collapsed to <span class="pill-inline">five</span> moves: ship fast, build AI into the core, hire for leverage, obsess over 10 users, and let revenue — not a deck — extend the runway.
-      <br><br>The ones who win this year live in the <span class="lime">intersections</span>.
-    </div>
+    <div class="body-headline">5 tips for building a startup in 2026:</div>
 
-    <div class="timestamp">9:42 AM · April 28, 2026 · <span style="color: rgba(255,255,255,0.72);">12.4K</span> Views</div>
+    <div class="tip-row"><span class="tip-num">1.</span><span class="tip-text">Ship fast, learn faster. Real users beat any spec doc.</span></div>
+    <div class="tip-row"><span class="tip-num">2.</span><span class="tip-text">Build AI into the core &mdash; not as a feature, as the foundation.</span></div>
+    <div class="tip-row"><span class="tip-num">3.</span><span class="tip-text">Hire for leverage, not headcount. One great operator beats five hires.</span></div>
+    <div class="tip-row"><span class="tip-num">4.</span><span class="tip-text">Obsess over 10 users before chasing 10,000. Depth wins early.</span></div>
+    <div class="tip-row"><span class="tip-num">5.</span><span class="tip-text">Revenue beats runway. Default-alive is the only safe state.</span></div>
 
-    <div class="metrics">
-      <span class="metric"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span><strong>284</strong></span></span>
-      <span class="metric"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg><span><strong>1,920</strong></span></span>
-      <span class="metric"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg><span><strong>8,431</strong></span></span>
-      <span class="metric"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span><strong>612</strong></span></span>
+    <div class="body-coda">Save this for the next time you're tempted to over-plan.</div>
+
+    <div class="card-footer">
+      <span class="timestamp">9:14 AM &middot; Apr 22, 2026</span>
+      <div class="divider"></div>
+      <div class="metrics">
+        <span class="metric"><span style="font-size:15px;">&#9825;</span><span class="metric-count">4,128</span></span>
+        <span class="metric"><span style="font-size:15px;">&#8635;</span><span class="metric-count">986</span></span>
+        <span class="metric"><span style="font-size:15px;">&#128172;</span><span class="metric-count">312</span></span>
+        <span class="metric"><span style="font-size:15px;">&#128065;</span><span class="metric-count">61.2K</span></span>
+      </div>
     </div>
   </div>
-</div>
+
 </body>
 </html>

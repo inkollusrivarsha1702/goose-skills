@@ -1,6 +1,6 @@
 # Vermilion Folio
 
-A confident vermilion outer canvas wraps an onyx inset panel that holds the entire composition like a folio jacket holds a hardcover book. Cream high-contrast serif headlines sit on the onyx inner stage; hand-drawn botanical line illustrations cluster in one corner, rendered in vermilion against the black. Reads like a design studio's premium PDF guide or a fashion-house essay collection.
+A confident vermilion outer canvas wraps an onyx inset panel that holds the entire composition like a folio jacket holds a hardcover book. Cream high-contrast serif headlines sit on the onyx inner stage; the only saturated element on the panel is a small vermilion brand wordmark in the top-right. Reads like a design studio's premium PDF guide or a fashion-house essay collection.
 
 ## Palette
 
@@ -10,9 +10,9 @@ A confident vermilion outer canvas wraps an onyx inset panel that holds the enti
 | `#0E0E0E` | Onyx — inner stage panel |
 | `#F2EBE0` | Cream — primary serif type on onyx |
 | `rgba(242,235,224,0.45)` | Cream 45 — secondary captions on onyx |
+| `rgba(242,235,224,0.18)` | Cream 18 — hairline rules on onyx |
 | `#7A7771` | Mute gray — sub-stat / version labels on onyx |
 | `#0E0E0E` | Ink — type on vermilion frame |
-| `#1F1F1F` | Carbon — botanical line strokes |
 
 ## Typography
 
@@ -42,32 +42,33 @@ A confident vermilion outer canvas wraps an onyx inset panel that holds the enti
 - Reserve vermilion for the outer frame and for the brand wordmark inside the panel — that's the only saturated element on black.
 - Body and captions are tiny and quiet (10-13px Inter) — let the serif breathe.
 - Mute gray version labels sit directly below the headline as quiet metadata, never bigger than 18-20px.
+- Generous leading on the serif. Tight Inter for everything else. The contrast is the rhythm.
 
 ## Layout
 
 - Format padding: carousel 80px · infographic 80/100 · slides 100px · poster 80/100 · story 80px · chart 80px · tweet 56px.
 - Outer canvas is always vermilion `#E83A19`. The onyx panel is an inset rectangle (sharp 90° corners — no rounding) with 60-100px of vermilion frame visible on every side.
-- Inside the onyx panel: the headline anchors top-left; the brand wordmark sits top-right; botanical illustrations cluster bottom-right; a tiny footer caption sits bottom-left.
-- Botanical illustrations are simple line + flat-fill SVG/CSS shapes — flowers, fruits, seeds, leaves rendered in vermilion fill with a thin carbon stroke. They appear as a still-life cluster, never tiled or repeating.
-- 1-3 botanical motifs per composition. The cluster is asymmetric, weighted to the bottom-right.
+- Inside the onyx panel: the headline anchors top-left; the brand wordmark sits top-right; a tiny tracked-uppercase footer caption sits bottom-left.
+- Hairline cream-at-18% rules separate sections — that's the only divider. No filled shapes, no decorative illustrations.
+- The dual vermilion-on-onyx framing is the signature — let it carry the composition. Whitespace is the second voice.
 
 ## Do / Don't
 
 **Do**
 
 - Frame every composition with vermilion outer + onyx inner — that dual-frame is the identity.
-- Render botanical motifs with vermilion fill + thin carbon line strokes. Keep them simple and stylized — round seed pods, three-petal blooms, single leaves.
 - Use cream high-contrast serif for headlines; let the type breathe with generous leading.
 - Use the brand wordmark as the only saturated element on black — top-right of the panel, in vermilion.
 - Anchor a tiny tracked-uppercase footer caption ("A PDF Guide · Studio") bottom-left of the panel as report metadata.
+- Separate sections with hairline cream-at-18% rules — never thicker, never another color.
 
 **Don't**
 
 - Don't round the onyx panel's corners. Sharp rectangular framing only.
 - Don't introduce a third hue. Vermilion + onyx + cream is the palette. Mute gray is fine for sub-labels.
 - Don't put the serif on vermilion — cream-on-onyx is the only headline pairing.
-- Don't tile or repeat the botanicals into a pattern. Each composition is a deliberate still-life cluster.
-- Don't shadow, gradient, or photograph the botanicals. They are flat vector illustrations only.
+- Don't add decorative illustrations, motifs, circles, or shapes on the onyx panel — the typography and framing are the entire identity.
+- Don't shadow, gradient, or photograph anything. Flat color and flat type only.
 
 ## CSS snippets
 
@@ -79,15 +80,15 @@ A confident vermilion outer canvas wraps an onyx inset panel that holds the enti
   --color-onyx: #0E0E0E;
   --color-cream: #F2EBE0;
   --color-cream-quiet: rgba(242,235,224,0.45);
+  --color-cream-rule: rgba(242,235,224,0.18);
   --color-mute: #7A7771;
-  --color-carbon: #1F1F1F;
 
   --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
   --font-body: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 ```
 
-### Onyx folio panel
+### Onyx folio panel with brand wordmark
 
 ```html
 <div style="background:#E83A19; padding:80px;">
@@ -95,18 +96,13 @@ A confident vermilion outer canvas wraps an onyx inset panel that holds the enti
     <p style="position:absolute; top:36px; right:64px; font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; letter-spacing:-0.4px; color:#E83A19;">studio</p>
     <h1 style="font-family:'Cormorant Garamond',serif; font-size:96px; font-weight:500; letter-spacing:-1.5px; line-height:1.00; color:#F2EBE0; margin:0;">A Field Guide<br>for Founders.</h1>
     <p style="font-family:'Inter',sans-serif; font-size:18px; font-weight:500; color:#7A7771; margin-top:14px;">Version 1.0</p>
+    <p style="position:absolute; bottom:36px; left:64px; font-family:'Inter',sans-serif; font-size:10px; font-weight:600; letter-spacing:1.4px; text-transform:uppercase; color:rgba(242,235,224,0.45);">A PDF Guide · Studio Press</p>
   </div>
 </div>
 ```
 
-### Botanical motif (round seed-pod cluster)
+### Hairline section rule
 
 ```html
-<svg width="220" height="180" viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg" style="position:absolute; bottom:48px; right:64px;">
-  <circle cx="60" cy="100" r="48" fill="#E83A19" stroke="#1F1F1F" stroke-width="1.5"/>
-  <path d="M60 52 L60 148" stroke="#1F1F1F" stroke-width="1.2" fill="none"/>
-  <path d="M28 100 L92 100" stroke="#1F1F1F" stroke-width="1.2" fill="none"/>
-  <ellipse cx="150" cy="80" rx="40" ry="56" fill="#E83A19" stroke="#1F1F1F" stroke-width="1.5"/>
-  <path d="M150 24 L150 136" stroke="#1F1F1F" stroke-width="1.2" fill="none"/>
-</svg>
+<hr style="border:0; border-top:1px solid rgba(242,235,224,0.18); margin:24px 0;">
 ```

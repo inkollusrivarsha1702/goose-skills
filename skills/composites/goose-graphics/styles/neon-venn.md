@@ -1,6 +1,6 @@
 # Neon Venn
 
-Charcoal canvas hosting overlapping thin-stroke Venn circles with neon-lime pill labels positioned inside the circle lobes. The signature move is **translucent hairline-stroke circles arranged in 2-3 overlapping zones, with rounded neon-lime pills floating in/across the lobes as label-data**. Tracked-uppercase column titles sit above each circle as figure captions. Reads like a dark-mode workshop diagram or a neon strategy doc — clinical structure meets electric energy.
+Charcoal canvas hosting neon-lime pill labels as floating data tags, organized by hairline white strokes and tracked-uppercase column captions. The signature move is **rounded neon-lime pills (`border-radius:999px`) anchoring sentence-case data labels against a flat charcoal field, with thin hairline rules and uppercase axis captions providing quiet structure**. Reads like a dark-mode workshop document or a neon strategy doc — clinical structure meets electric energy.
 
 ## Palette
 
@@ -13,8 +13,7 @@ Charcoal canvas hosting overlapping thin-stroke Venn circles with neon-lime pill
 | `#FFFFFF` | White — primary headlines |
 | `rgba(255,255,255,0.72)` | White 72 — secondary body |
 | `rgba(255,255,255,0.45)` | White 45 — tertiary captions, metadata |
-| `rgba(255,255,255,0.28)` | White 28 — Venn circle hairline strokes |
-| `rgba(255,255,255,0.10)` | White 10 — Venn circle fill (barely-there overlap tint) |
+| `rgba(255,255,255,0.28)` | White 28 — hairline rule / divider stroke |
 | `#0E0F11` | Charcoal — type ON the lime pills (pill ink) |
 
 ## Typography
@@ -44,7 +43,7 @@ Charcoal canvas hosting overlapping thin-stroke Venn circles with neon-lime pill
 
 - Headlines run tight Space Grotesk 600 — calm, geometric, no bold or italic flourish.
 - Pill labels use sentence-case Inter 600 at 14px on neon lime — readable as buttons, not tracked-uppercase shouting.
-- Column captions above each Venn lobe are tracked-uppercase Inter 11px in white 45 — they act as figure axes.
+- Tracked-uppercase column captions sit above sections in white-at-45% — they label, never decorate.
 - Type stays white-on-charcoal everywhere except inside the lime pills, where it flips to charcoal `#0E0F11`.
 - One typeface family for body (Inter); Space Grotesk handles display + brand only.
 
@@ -52,26 +51,26 @@ Charcoal canvas hosting overlapping thin-stroke Venn circles with neon-lime pill
 
 - Format padding: carousel 72px · infographic 72/96 · slides 96px · poster 80/96 · story 72px · chart 80px · tweet 56px.
 - Canvas is always charcoal `#0E0F11` — flat, no gradient, no texture.
-- Venn diagram is the structural anchor: 2-3 large circles (320-520px diameter) drawn as 1.5px white-at-28% strokes with `rgba(255,255,255,0.10)` fill, arranged so adjacent circles overlap by 25-40% of their diameter.
-- Neon-lime pills (32-44px tall, fully rounded `border-radius:999px`, padding `10px 20px`) float inside the circle lobes — placement signals which category the label belongs to. Use 4-9 pills total per composition, varying horizontal position and slight vertical staggering.
-- Above each circle, a tracked-uppercase column caption (e.g. `DISCOVERY`, `ANALYSIS`, `DESIGN`) sits in white 45 — these are the diagram axes.
-- Hero headline lives top-left, body intro under it, Venn diagram occupies the lower 55-70% of the canvas.
-- All corners are sharp 90° rectangles for any panels or cards. The only roundness is the lime pills (full radius) and the Venn circles themselves.
+- Hairline white strokes (1.5px, 28% opacity) build the only structure: dividers between sections, thin rules under captions, simple frames for content groups, axis lines. No filled shapes — strokes only.
+- Neon-lime pills (32-44px tall, fully rounded `border-radius:999px`, padding `10px 20px`) carry the data: sentence-case Inter 600, charcoal type. Pills cluster in zones, ride along axes, or stack as legend — placement signals meaning.
+- Tracked-uppercase column captions in white-at-45% sit above sections or columns as figure axes — they label the zones below.
+- Hero headline anchors top-left; pills + structural content fill the lower 55-70% of the canvas.
+- All non-pill elements are sharp 90° rectangles. Only roundness is the lime pills (full radius).
 
 ## Do / Don't
 
 **Do**
 
-- Build the Venn as real overlapping circles (`border-radius:50%`, hairline stroke, faint fill) — not SVG paths, not images.
-- Float lime pills inside the lobes with absolute positioning so the placement reads as data — pills "live" in their circle.
+- Build structure from hairline white strokes (1.5px, 28% opacity) — dividers, thin frames, axis lines, simple grids.
+- Float lime pills with absolute positioning so their placement reads as data — pills cluster in zones, ride along axes, or stack as legend.
 - Set every pill label in Inter 600, charcoal type, sentence-case — pills are buttons, not banners.
-- Caption each Venn lobe with a tracked-uppercase column label above the circle in white 45.
+- Caption sections with a tracked-uppercase column label above the content in white 45.
 - Keep all non-pill type in white or white-at-opacity — neon lime is reserved for pills (and the rare CTA).
 
 **Don't**
 
-- Don't fill the Venn circles with solid color — they must read as overlapping rings, not stacked discs.
-- Don't put more than 2-3 circles in the Venn — the diagram becomes mush past three lobes.
+- Don't add gradients, glows, or shadows — the neon energy comes from hue contrast alone.
+- Don't use the lime for body text — pills only, plus rare CTA accent.
 - Don't set pill labels in tracked-uppercase — they're sentence-case buttons, not eyebrow tags.
 - Don't introduce a third hue. The system is charcoal + white + neon lime only.
 - Don't round non-pill elements. Cards, headers, dividers stay sharp 90° rectangles.
@@ -89,31 +88,27 @@ Charcoal canvas hosting overlapping thin-stroke Venn circles with neon-lime pill
   --color-white: #FFFFFF;
   --color-white-72: rgba(255,255,255,0.72);
   --color-white-45: rgba(255,255,255,0.45);
-  --color-ring-stroke: rgba(255,255,255,0.28);
-  --color-ring-fill: rgba(255,255,255,0.10);
+  --color-rule: rgba(255,255,255,0.28);
 
   --font-display: 'Space Grotesk', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-body: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 ```
 
-### Venn ring with floating lime pill
+### Two-column zone with hairline divider + pill clusters
 
 ```html
-<div style="position:relative; width:920px; height:520px;">
-  <!-- Column captions -->
-  <p style="position:absolute; top:0; left:140px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin:0;">Discovery</p>
-  <p style="position:absolute; top:0; left:430px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin:0;">Analysis</p>
-  <p style="position:absolute; top:0; left:720px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin:0;">Design</p>
-
-  <!-- Venn rings -->
-  <div style="position:absolute; top:48px; left:0; width:440px; height:440px; border:1.5px solid rgba(255,255,255,0.28); background:rgba(255,255,255,0.10); border-radius:50%;"></div>
-  <div style="position:absolute; top:48px; left:280px; width:440px; height:440px; border:1.5px solid rgba(255,255,255,0.28); background:rgba(255,255,255,0.10); border-radius:50%;"></div>
-  <div style="position:absolute; top:48px; left:560px; width:440px; height:440px; border:1.5px solid rgba(255,255,255,0.28); background:rgba(255,255,255,0.10); border-radius:50%;"></div>
-
-  <!-- Lime pills floating in lobes -->
-  <span style="position:absolute; top:200px; left:80px; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px;">User research</span>
-  <span style="position:absolute; top:280px; left:130px; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px;">Problem identity</span>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; padding:32px 0; border-top:1.5px solid rgba(255,255,255,0.28); border-bottom:1.5px solid rgba(255,255,255,0.28);">
+  <div>
+    <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin:0 0 18px;">Velocity</p>
+    <span style="display:inline-block; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px; margin:4px 6px 4px 0;">Ship fast</span>
+    <span style="display:inline-block; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px; margin:4px 6px 4px 0;">Learn faster</span>
+  </div>
+  <div style="border-left:1.5px solid rgba(255,255,255,0.28); padding-left:48px;">
+    <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin:0 0 18px;">Leverage</p>
+    <span style="display:inline-block; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px; margin:4px 6px 4px 0;">AI core</span>
+    <span style="display:inline-block; background:#D6FF3D; color:#0E0F11; font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px; margin:4px 6px 4px 0;">10x hires</span>
+  </div>
 </div>
 ```
 
