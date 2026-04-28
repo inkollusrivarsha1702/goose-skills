@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Venn — Slides 01</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
+  .canvas { position: relative; width: 1920px; height: 1080px; padding: 96px; display: grid; grid-template-columns: 760px 1fr; column-gap: 96px; align-items: center; }
+  .top-row { position: absolute; left: 96px; right: 96px; top: 56px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .brand { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 96px; font-weight: 600; line-height: 0.98; letter-spacing: -2.6px; color: #fff; margin-top: 16px; }
+  h1 .lime { color: #D6FF3D; }
+  .lead { font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.55; color: rgba(255,255,255,0.72); margin-top: 24px; max-width: 620px; }
+
+  .venn { position: relative; width: 920px; height: 760px; }
+  .col-cap { position: absolute; top: 0; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.10); border-radius: 50%; }
+  .pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; padding: 11px 22px; border-radius: 999px; white-space: nowrap; }
+
+  .footer { position: absolute; left: 96px; right: 96px; bottom: 56px; display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.10); }
+  .footer-l { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+  .footer-r { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="top-row">
+    <span class="brand">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="meta">2026 / DECK 01 OF 12</span>
+  </div>
+
+  <div>
+    <p class="eyebrow">The Map</p>
+    <h1>5 Tips for<br>Building a<br>Startup<span class="lime">.</span></h1>
+    <p class="lead">Three lobes — velocity, leverage, discipline. Five moves that sit where the lobes overlap. The founder's job in 2026 is to live in the intersections.</p>
+  </div>
+
+  <div class="venn">
+    <p class="col-cap" style="left: 100px;">Velocity</p>
+    <p class="col-cap" style="left: 420px;">Leverage</p>
+    <p class="col-cap" style="left: 740px;">Discipline</p>
+
+    <div class="ring" style="top: 60px; left: 0; width: 480px; height: 480px;"></div>
+    <div class="ring" style="top: 60px; left: 240px; width: 480px; height: 480px;"></div>
+    <div class="ring" style="top: 60px; left: 480px; width: 480px; height: 480px;"></div>
+
+    <span class="pill" style="top: 220px; left: 50px;">Ship fast, learn faster</span>
+    <span class="pill" style="top: 320px; left: 80px;">Obsess over 10 users</span>
+    <span class="pill" style="top: 270px; left: 360px;">Build AI into the core</span>
+    <span class="pill" style="top: 400px; left: 320px;">Hire for leverage</span>
+    <span class="pill" style="top: 290px; left: 660px;">Revenue beats runway</span>
+  </div>
+
+  <div class="footer">
+    <span class="footer-l">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="footer-r">2026 / VOL. 01</span>
+  </div>
+</div>
+</body>
+</html>

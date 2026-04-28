@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Venn — Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
+  .canvas { position: relative; width: 1080px; height: 1920px; padding: 100px 72px 72px; }
+  .top-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .brand { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 56px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 96px; font-weight: 600; line-height: 0.95; letter-spacing: -2.5px; color: #fff; margin-top: 16px; }
+  h1 .lime { color: #D6FF3D; }
+  .lead { font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.55; color: rgba(255,255,255,0.72); margin-top: 26px; max-width: 720px; }
+
+  .venn { position: absolute; left: 50px; top: 880px; width: 980px; height: 700px; }
+  .col-cap { position: absolute; top: 0; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.10); border-radius: 50%; }
+  .pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 999px; white-space: nowrap; }
+
+  .cta { position: absolute; left: 72px; right: 72px; bottom: 140px; display: flex; align-items: center; gap: 16px; }
+  .cta-pill { background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; padding: 14px 28px; border-radius: 999px; }
+  .cta-text { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.72); }
+
+  .footer { position: absolute; left: 72px; right: 72px; bottom: 56px; display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.10); }
+  .footer-l { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+  .footer-r { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="top-row">
+    <span class="brand">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="meta">STORY / 2026</span>
+  </div>
+
+  <p class="eyebrow">2026 Field Guide</p>
+  <h1>5 Tips for<br>Building a<br>Startup<span class="lime">.</span></h1>
+  <p class="lead">Three lobes. Five moves. One year that rewards founders who live in the intersections.</p>
+
+  <div class="venn">
+    <p class="col-cap" style="left: 90px;">Velocity</p>
+    <p class="col-cap" style="left: 425px;">Leverage</p>
+    <p class="col-cap" style="left: 770px;">Discipline</p>
+
+    <div class="ring" style="top: 50px; left: 0; width: 480px; height: 480px;"></div>
+    <div class="ring" style="top: 50px; left: 250px; width: 480px; height: 480px;"></div>
+    <div class="ring" style="top: 50px; left: 500px; width: 480px; height: 480px;"></div>
+
+    <span class="pill" style="top: 220px; left: 30px;">Ship fast</span>
+    <span class="pill" style="top: 320px; left: 60px;">10 users</span>
+    <span class="pill" style="top: 260px; left: 320px;">AI core</span>
+    <span class="pill" style="top: 380px; left: 290px;">Leverage</span>
+    <span class="pill" style="top: 290px; left: 700px;">Revenue</span>
+  </div>
+
+  <div class="cta">
+    <span class="cta-pill">Read the guide</span>
+    <span class="cta-text">@founders.field</span>
+  </div>
+
+  <div class="footer">
+    <span class="footer-l">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="footer-r">2026 / VOL. 01</span>
+  </div>
+</div>
+</body>
+</html>

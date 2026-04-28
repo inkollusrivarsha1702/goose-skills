@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Venn — Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
+  .canvas { position: relative; width: 1080px; height: 1080px; padding: 80px; }
+  .top-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .brand { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 32px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 600; line-height: 1.0; letter-spacing: -1.5px; color: #fff; margin-top: 12px; max-width: 760px; }
+  .sub { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.72); margin-top: 14px; max-width: 720px; }
+
+  .deco { position: absolute; pointer-events: none; }
+  .deco .ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04); border-radius: 50%; }
+
+  .chart { position: absolute; left: 80px; right: 80px; top: 380px; bottom: 130px; display: grid; grid-template-rows: 1fr 1fr 1fr 1fr 1fr; row-gap: 22px; align-content: center; }
+  .row { display: grid; grid-template-columns: 240px 1fr 90px; column-gap: 18px; align-items: center; }
+  .label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #fff; }
+  .label small { display: block; font-weight: 400; color: rgba(255,255,255,0.45); margin-top: 2px; font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; }
+  .bar-track { position: relative; height: 36px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+  .bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: #D6FF3D; border-radius: 999px; display: flex; align-items: center; padding: 0 16px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: #0E0F11; }
+  .pct { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600; color: #fff; letter-spacing: -0.3px; text-align: right; }
+
+  .footer { position: absolute; left: 80px; right: 80px; bottom: 56px; display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.10); }
+  .footer-l { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+  .footer-r { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <!-- background Venn rings, very faint -->
+  <div class="deco" style="left: 600px; top: 80px; width: 460px; height: 380px;">
+    <div class="ring" style="top: 0; left: 0; width: 240px; height: 240px;"></div>
+    <div class="ring" style="top: 0; left: 130px; width: 240px; height: 240px;"></div>
+  </div>
+
+  <div class="top-row">
+    <span class="brand">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="meta">CHART / NO. 04</span>
+  </div>
+
+  <p class="eyebrow">Where Founders Spend 2026</p>
+  <h1>The five moves<br>that move the needle.</h1>
+  <p class="sub">Self-reported weekly time allocation across 312 funded founders, normalized to 100%.</p>
+
+  <div class="chart">
+    <div class="row">
+      <div class="label">Ship fast, learn faster<small>VELOCITY</small></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 92%;">Daily release cadence</div></div>
+      <div class="pct">28%</div>
+    </div>
+    <div class="row">
+      <div class="label">Build AI into the core<small>LEVERAGE</small></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 82%;">Model-in-the-loop</div></div>
+      <div class="pct">24%</div>
+    </div>
+    <div class="row">
+      <div class="label">Hire for leverage<small>LEVERAGE</small></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 64%;">5 people, great tools</div></div>
+      <div class="pct">19%</div>
+    </div>
+    <div class="row">
+      <div class="label">Obsess over 10 users<small>VELOCITY · DISCIPLINE</small></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 56%;">Depth before breadth</div></div>
+      <div class="pct">17%</div>
+    </div>
+    <div class="row">
+      <div class="label">Revenue beats runway<small>DISCIPLINE</small></div>
+      <div class="bar-track"><div class="bar-fill" style="width: 40%;">Charge early</div></div>
+      <div class="pct">12%</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-l">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="footer-r">N=312 · 2026 SURVEY</span>
+  </div>
+</div>
+</body>
+</html>

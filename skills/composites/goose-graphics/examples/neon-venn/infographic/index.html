@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Venn — Infographic</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; overflow-x: hidden; background: #0E0F11; font-family: 'Inter', sans-serif; }
+  .canvas { width: 1080px; padding: 80px 72px 96px; }
+  .top-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .brand { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: #fff; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 56px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 76px; font-weight: 600; line-height: 1.0; letter-spacing: -2.2px; color: #fff; margin-top: 12px; }
+  h1 .lime { color: #D6FF3D; }
+  .lead { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.72); margin-top: 22px; max-width: 720px; }
+
+  .hero-venn { position: relative; margin: 56px auto 0; width: 880px; height: 460px; }
+  .col-cap { position: absolute; top: 0; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .ring { position: absolute; border: 1.5px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.10); border-radius: 50%; }
+  .pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 18px; border-radius: 999px; white-space: nowrap; }
+
+  .tip { display: grid; grid-template-columns: 80px 1fr 320px; column-gap: 32px; align-items: center; padding: 36px 0; border-bottom: 1px solid rgba(255,255,255,0.10); }
+  .tip-no { font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 600; color: rgba(255,255,255,0.28); letter-spacing: -1.5px; }
+  .tip-h { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 600; color: #fff; letter-spacing: -0.6px; line-height: 1.15; margin-bottom: 8px; }
+  .tip-b { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.72); }
+  .mini-venn { position: relative; width: 320px; height: 140px; }
+  .mini-ring { position: absolute; border: 1.2px solid rgba(255,255,255,0.28); background: rgba(255,255,255,0.10); border-radius: 50%; }
+  .mini-pill { position: absolute; background: #D6FF3D; color: #0E0F11; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+
+  .footer { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.10); }
+  .footer-l { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+  .footer-r { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="top-row">
+    <span class="brand">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="meta">2026 / FIELD GUIDE</span>
+  </div>
+
+  <p class="eyebrow">The Map</p>
+  <h1>5 Tips for Building a<br>Startup in 2026<span class="lime">.</span></h1>
+  <p class="lead">Three lobes — velocity, leverage, discipline. Where they overlap is where modern founders win.</p>
+
+  <div class="hero-venn">
+    <p class="col-cap" style="left: 90px;">Velocity</p>
+    <p class="col-cap" style="left: 395px;">Leverage</p>
+    <p class="col-cap" style="left: 700px;">Discipline</p>
+
+    <div class="ring" style="top: 38px; left: 0; width: 380px; height: 380px;"></div>
+    <div class="ring" style="top: 38px; left: 250px; width: 380px; height: 380px;"></div>
+    <div class="ring" style="top: 38px; left: 500px; width: 380px; height: 380px;"></div>
+
+    <span class="pill" style="top: 180px; left: 30px;">Ship fast, learn faster</span>
+    <span class="pill" style="top: 260px; left: 60px;">Obsess over 10 users</span>
+    <span class="pill" style="top: 220px; left: 320px;">Build AI into the core</span>
+    <span class="pill" style="top: 320px; left: 290px;">Hire for leverage</span>
+    <span class="pill" style="top: 250px; left: 620px;">Revenue beats runway</span>
+  </div>
+
+  <div style="margin-top: 64px;">
+    <div class="tip">
+      <div class="tip-no">01</div>
+      <div>
+        <div class="tip-h">Ship fast, learn faster.</div>
+        <div class="tip-b">Iteration speed is the new moat. Every Friday without a release is a Friday a competitor caught up. Cut scope, not cycles.</div>
+      </div>
+      <div class="mini-venn">
+        <div class="mini-ring" style="top: 10px; left: 0; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 90px; width: 140px; height: 120px;"></div>
+        <span class="mini-pill" style="top: 60px; left: 30px;">Ship fast</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-no">02</div>
+      <div>
+        <div class="tip-h">Build AI into the core.</div>
+        <div class="tip-b">AI as a feature is already legacy. The startups that compound in 2026 are AI-native — the model is in the loop, not bolted on top.</div>
+      </div>
+      <div class="mini-venn">
+        <div class="mini-ring" style="top: 10px; left: 30px; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 120px; width: 140px; height: 120px;"></div>
+        <span class="mini-pill" style="top: 60px; left: 75px;">AI core</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-no">03</div>
+      <div>
+        <div class="tip-h">Hire for leverage, not headcount.</div>
+        <div class="tip-b">Five people with great tools beat fifteen with a process. Optimize for output per person, not org-chart heft.</div>
+      </div>
+      <div class="mini-venn">
+        <div class="mini-ring" style="top: 10px; left: 0; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 90px; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 180px; width: 140px; height: 120px;"></div>
+        <span class="mini-pill" style="top: 60px; left: 100px;">Leverage</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-no">04</div>
+      <div>
+        <div class="tip-h">Obsess over 10 users before 10,000.</div>
+        <div class="tip-b">Depth before breadth. Ten users who would cry if you shut down beat ten thousand who'd shrug. Earn intensity first.</div>
+      </div>
+      <div class="mini-venn">
+        <div class="mini-ring" style="top: 10px; left: 20px; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 110px; width: 140px; height: 120px;"></div>
+        <span class="mini-pill" style="top: 60px; left: 50px;">10 users</span>
+      </div>
+    </div>
+
+    <div class="tip" style="border-bottom: none;">
+      <div class="tip-no">05</div>
+      <div>
+        <div class="tip-h">Revenue beats runway.</div>
+        <div class="tip-b">Cheap capital is gone. The founders who win 2026 charge early, charge confidently, and let revenue — not a deck — extend their runway.</div>
+      </div>
+      <div class="mini-venn">
+        <div class="mini-ring" style="top: 10px; left: 60px; width: 140px; height: 120px;"></div>
+        <div class="mini-ring" style="top: 10px; left: 150px; width: 140px; height: 120px;"></div>
+        <span class="mini-pill" style="top: 60px; left: 110px;">Revenue</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-l">FOUNDERS<span style="color:#D6FF3D">.</span></span>
+    <span class="footer-r">2026 / VOL. 01</span>
+  </div>
+</div>
+</body>
+</html>
