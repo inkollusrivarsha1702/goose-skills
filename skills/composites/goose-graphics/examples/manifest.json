@@ -694,6 +694,398 @@
       "png": "forest-data-report/poster/example.png",
       "model": "opus",
       "status": "success"
+    },
+    "obsidian-bloom/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/poster",
+      "png": "obsidian-bloom/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/infographic",
+      "png": "obsidian-bloom/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/carousel",
+      "png": "obsidian-bloom/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/slides",
+      "png": "obsidian-bloom/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/story",
+      "png": "obsidian-bloom/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/chart",
+      "png": "obsidian-bloom/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "obsidian-bloom/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "obsidian-bloom/tweet",
+      "png": "obsidian-bloom/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/poster",
+      "png": "vermilion-folio/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/infographic",
+      "png": "vermilion-folio/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/carousel",
+      "png": "vermilion-folio/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/slides",
+      "png": "vermilion-folio/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/story",
+      "png": "vermilion-folio/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/chart",
+      "png": "vermilion-folio/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "vermilion-folio/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "vermilion-folio/tweet",
+      "png": "vermilion-folio/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/poster",
+      "png": "cobalt-network/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/infographic",
+      "png": "cobalt-network/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/carousel",
+      "png": "cobalt-network/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/slides",
+      "png": "cobalt-network/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/story",
+      "png": "cobalt-network/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/chart",
+      "png": "cobalt-network/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "cobalt-network/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "cobalt-network/tweet",
+      "png": "cobalt-network/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/poster",
+      "png": "gradient-editorial/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/infographic",
+      "png": "gradient-editorial/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/carousel",
+      "png": "gradient-editorial/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/slides",
+      "png": "gradient-editorial/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/story",
+      "png": "gradient-editorial/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/chart",
+      "png": "gradient-editorial/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "gradient-editorial/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "gradient-editorial/tweet",
+      "png": "gradient-editorial/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/poster",
+      "png": "pixel-haze/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/infographic",
+      "png": "pixel-haze/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/carousel",
+      "png": "pixel-haze/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/slides",
+      "png": "pixel-haze/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/story",
+      "png": "pixel-haze/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/chart",
+      "png": "pixel-haze/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "pixel-haze/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "pixel-haze/tweet",
+      "png": "pixel-haze/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/poster",
+      "png": "industrial-folio/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/infographic",
+      "png": "industrial-folio/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/carousel",
+      "png": "industrial-folio/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/slides",
+      "png": "industrial-folio/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/story",
+      "png": "industrial-folio/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/chart",
+      "png": "industrial-folio/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "industrial-folio/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "industrial-folio/tweet",
+      "png": "industrial-folio/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/poster",
+      "png": "mustard-setup/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/infographic",
+      "png": "mustard-setup/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/carousel",
+      "png": "mustard-setup/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/slides",
+      "png": "mustard-setup/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/story",
+      "png": "mustard-setup/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/chart",
+      "png": "mustard-setup/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "mustard-setup/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "mustard-setup/tweet",
+      "png": "mustard-setup/tweet/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/poster": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/poster",
+      "png": "neon-venn/poster/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/infographic": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/infographic",
+      "png": "neon-venn/infographic/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/carousel": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/carousel",
+      "png": "neon-venn/carousel/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/slides": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/slides",
+      "png": "neon-venn/slides/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/story": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/story",
+      "png": "neon-venn/story/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/chart": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/chart",
+      "png": "neon-venn/chart/example.png",
+      "model": "opus",
+      "status": "success"
+    },
+    "neon-venn/tweet": {
+      "generated_at": "2026-04-28T00:00:00.000Z",
+      "html": "neon-venn/tweet",
+      "png": "neon-venn/tweet/example.png",
+      "model": "opus",
+      "status": "success"
     }
   }
 }
