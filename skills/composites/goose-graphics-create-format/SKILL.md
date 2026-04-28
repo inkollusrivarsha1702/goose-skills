@@ -1,5 +1,5 @@
 ---
-name: create-goose-graphics-format
+name: goose-graphics-create-format
 description: >
   Creates a new graphics format spec (custom canvas dimensions + content rules)
   and publishes it to the Gooseworks library so any agent can render against it.

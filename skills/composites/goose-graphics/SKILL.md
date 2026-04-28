@@ -114,7 +114,7 @@ The description is what makes the style discoverable by AI agents searching the 
 
 ## 5. Publishing your format
 
-When the existing community-published formats don't fit the user's canvas (e.g., LinkedIn banner 1584×396, story cover 1080×1920, event flyer 8.5×11in), use the sibling `/create-goose-graphics-format` skill to produce a format spec and at least one rendered example, then publish:
+When the existing community-published formats don't fit the user's canvas (e.g., LinkedIn banner 1584×396, story cover 1080×1920, event flyer 8.5×11in), use the sibling `/goose-graphics-create-format` skill to produce a format spec and at least one rendered example, then publish:
 
 ```bash
 cd <directory-with-format-bundle>
@@ -179,7 +179,7 @@ Ask the user what they want to create. Run `npx gooseworks formats list` to see 
 | **Chart** | 1080x1080px | Single data chart graphic |
 | **Tweet** | 1080x1080px | Tweet-sized square screenshot |
 
-The community library may publish additional formats (LinkedIn banners, story covers, etc.) — always run `list` first rather than assuming the seven above are exhaustive. If none of the available formats fit the user's needs, suggest the `/create-goose-graphics-format` skill.
+The community library may publish additional formats (LinkedIn banners, story covers, etc.) — always run `list` first rather than assuming the seven above are exhaustive. If none of the available formats fit the user's needs, suggest the `/goose-graphics-create-format` skill.
 
 Once the user chooses a format, fetch its full spec:
 
